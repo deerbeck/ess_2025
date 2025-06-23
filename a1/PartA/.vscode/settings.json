@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "string.h": "c",
+        "xmc_scu.h": "c",
+        "xmc_common.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/johannes/ess_s2025/PartA/build",
+            "binaryPath": "/home/johannes/ess_s2025/PartA/build/main.elf",
+            "binaryArgs": []
+        }
+    ]
+}

