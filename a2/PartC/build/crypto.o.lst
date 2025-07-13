@@ -1,0 +1,215 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"crypto.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "crypto.c"
+  19              		.section	.text.encrypt,"ax",%progbits
+  20              		.align	1
+  21              		.global	encrypt
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	encrypt:
+  27              	.LVL0:
+  28              	.LFB0:
+   1:crypto.c      **** /* Source file for the homebrewn crypto used in assignment 2
+   2:crypto.c      ****  *
+   3:crypto.c      ****  * Copyright 2018 TUM
+   4:crypto.c      ****  * Created: 2018-11-15 Florian Wilde <florian.wilde@tum.de>
+   5:crypto.c      ****  **************************************************************************************************
+   6:crypto.c      **** 
+   7:crypto.c      **** #include <stdint.h>
+   8:crypto.c      **** #include <string.h>
+   9:crypto.c      **** #include <malloc.h>
+  10:crypto.c      **** #include "crypto.h"
+  11:crypto.c      **** 
+  12:crypto.c      **** uint8_t encrypt(uint8_t *ciphertext[],
+  13:crypto.c      ****                 const uint8_t *plaintext, const size_t plaintext_len,
+  14:crypto.c      ****                 const uint8_t *nonce, const uint8_t *key ) {
+  29              		.loc 1 14 60 view -0
+  30              		.cfi_startproc
+  31              		@ args = 4, pretend = 0, frame = 136
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 14 60 is_stmt 0 view .LVU1
+  34 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 20
+  37              		.cfi_offset 4, -20
+  38              		.cfi_offset 5, -16
+  39              		.cfi_offset 6, -12
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 A3B0     		sub	sp, sp, #140
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_offset 160
+  45 0004 0546     		mov	r5, r0
+  46 0006 1446     		mov	r4, r2
+  47 0008 1E46     		mov	r6, r3
+  48 000a 289F     		ldr	r7, [sp, #160]
+  49              		.loc 1 14 60 view .LVU2
+  50 000c 154B     		ldr	r3, .L7
+  51              	.LVL1:
+  52              		.loc 1 14 60 view .LVU3
+  53 000e 1B68     		ldr	r3, [r3]
+  54 0010 2193     		str	r3, [sp, #132]
+  55 0012 4FF00003 		mov	r3, #0
+  15:crypto.c      ****   /* Encrypt like the most popular app with over 30 million users worldwide did
+  16:crypto.c      ****      cf. https://www.ssl.com/article/nq-vault-app-not-as-secure-as-advertised/  */
+  17:crypto.c      ****   uint8_t buf[128];
+  56              		.loc 1 17 3 is_stmt 1 view .LVU4
+  18:crypto.c      ****   memcpy(buf, plaintext, plaintext_len);
+  57              		.loc 1 18 3 view .LVU5
+  58 0016 01A8     		add	r0, sp, #4
+  59              	.LVL2:
+  60              		.loc 1 18 3 is_stmt 0 view .LVU6
+  61 0018 FFF7FEFF 		bl	memcpy
+  62              	.LVL3:
+  19:crypto.c      ****   for(uint8_t i=0; i<128; i++) buf[i] ^= key[nonce[0] % 8];
+  63              		.loc 1 19 3 is_stmt 1 view .LVU7
+  64              	.LBB2:
+  65              		.loc 1 19 7 view .LVU8
+  66              		.loc 1 19 21 discriminator 1 view .LVU9
+  67              		.loc 1 19 55 is_stmt 0 discriminator 3 view .LVU10
+  68 001c 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+  69 001e 03F00703 		and	r3, r3, #7
+  70              		.loc 1 19 45 discriminator 3 view .LVU11
+  71 0022 17F803E0 		ldrb	lr, [r7, r3]	@ zero_extendqisi2
+  72 0026 0DF10303 		add	r3, sp, #3
+  73 002a 0DF1830C 		add	ip, sp, #131
+  74              	.LVL4:
+  75              	.L2:
+  76              		.loc 1 19 32 is_stmt 1 discriminator 3 view .LVU12
+  77              		.loc 1 19 39 is_stmt 0 discriminator 3 view .LVU13
+  78 002e 13F8011F 		ldrb	r1, [r3, #1]!	@ zero_extendqisi2
+  79              	.LVL5:
+  80              		.loc 1 19 39 discriminator 3 view .LVU14
+  81 0032 8EEA0101 		eor	r1, lr, r1
+  82 0036 1970     		strb	r1, [r3]
+  83              		.loc 1 19 28 is_stmt 1 discriminator 3 view .LVU15
+  84              	.LVL6:
+  85              		.loc 1 19 21 discriminator 1 view .LVU16
+  86 0038 6345     		cmp	r3, ip
+  87 003a F8D1     		bne	.L2
+  88              	.LBE2:
+  20:crypto.c      ****   *ciphertext = malloc(plaintext_len);
+  89              		.loc 1 20 3 view .LVU17
+  90              		.loc 1 20 17 is_stmt 0 view .LVU18
+  91 003c 2046     		mov	r0, r4
+  92 003e FFF7FEFF 		bl	malloc
+  93              	.LVL7:
+  94              		.loc 1 20 15 discriminator 1 view .LVU19
+  95 0042 2860     		str	r0, [r5]
+  21:crypto.c      ****   memcpy(*ciphertext, buf, plaintext_len);
+  96              		.loc 1 21 3 is_stmt 1 view .LVU20
+  97 0044 2246     		mov	r2, r4
+  98 0046 01A9     		add	r1, sp, #4
+  99 0048 FFF7FEFF 		bl	memcpy
+ 100              	.LVL8:
+  22:crypto.c      ****   return 0;
+ 101              		.loc 1 22 3 view .LVU21
+  23:crypto.c      **** }
+ 102              		.loc 1 23 1 is_stmt 0 view .LVU22
+ 103 004c 054B     		ldr	r3, .L7
+ 104 004e 1A68     		ldr	r2, [r3]
+ 105 0050 219B     		ldr	r3, [sp, #132]
+ 106 0052 5A40     		eors	r2, r3, r2
+ 107 0054 4FF00003 		mov	r3, #0
+ 108 0058 02D1     		bne	.L6
+ 109 005a 0020     		movs	r0, #0
+ 110 005c 23B0     		add	sp, sp, #140
+ 111              	.LCFI2:
+ 112              		.cfi_remember_state
+ 113              		.cfi_def_cfa_offset 20
+ 114              		@ sp needed
+ 115 005e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 116              	.LVL9:
+ 117              	.L6:
+ 118              	.LCFI3:
+ 119              		.cfi_restore_state
+ 120              		.loc 1 23 1 view .LVU23
+ 121 0060 FFF7FEFF 		bl	__stack_chk_fail
+ 122              	.LVL10:
+ 123              	.L8:
+ 124              		.align	2
+ 125              	.L7:
+ 126 0064 00000000 		.word	__stack_chk_guard
+ 127              		.cfi_endproc
+ 128              	.LFE0:
+ 130              		.section	.text.getCiphertextLength,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	getCiphertextLength
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 137              	getCiphertextLength:
+ 138              	.LVL11:
+ 139              	.LFB1:
+  24:crypto.c      **** 
+  25:crypto.c      **** size_t getCiphertextLength(const size_t plaintext_len) {
+ 140              		.loc 1 25 56 is_stmt 1 view -0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+  26:crypto.c      ****   return plaintext_len;
+ 145              		.loc 1 26 3 view .LVU25
+  27:crypto.c      **** }
+ 146              		.loc 1 27 1 is_stmt 0 view .LVU26
+ 147 0000 7047     		bx	lr
+ 148              		.cfi_endproc
+ 149              	.LFE1:
+ 151              		.text
+ 152              	.Letext0:
+ 153              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 154              		.file 3 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 155              		.file 4 "/usr/include/newlib/malloc.h"
+ 156              		.file 5 "/usr/include/newlib/string.h"
+ 157              		.file 6 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 crypto.c
+     /tmp/cc1lZzu1.s:20     .text.encrypt:00000000 $t
+     /tmp/cc1lZzu1.s:26     .text.encrypt:00000000 encrypt
+     /tmp/cc1lZzu1.s:126    .text.encrypt:00000064 $d
+     /tmp/cc1lZzu1.s:131    .text.getCiphertextLength:00000000 $t
+     /tmp/cc1lZzu1.s:137    .text.getCiphertextLength:00000000 getCiphertextLength
+                           .group:00000000 wm4.0.4be6372613153b6292d63d4df696c1e1
+                           .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.newlib.h.27.07bf1b8b16da454ae07478107717878b
+                           .group:00000000 wm4.ieeefp.h.77.5ad60f72ea25fc152400b550ac118212
+                           .group:00000000 wm4.features.h.22.c11ecc6cb8b914ead0c0895c00b4b4d5
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.cdefs.h.49.a0dc0a4a6c7d01e2e5d0aade9399215f
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:00000000 wm4.reent.h.78.7f0775353a33c852a1479c008f68cd03
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.malloc.h.4.62bd13b8107d5245f60bd92bb5994838
+                           .group:00000000 wm4.malloc.h.152.f5d1d9a9aabeac59da0ef41ede16d2b0
+                           .group:00000000 wm4.crypto.h.8.3c7e0671468cbc28e07567ab2d290f6b
+
+UNDEFINED SYMBOLS
+memcpy
+malloc
+__stack_chk_fail
+__stack_chk_guard

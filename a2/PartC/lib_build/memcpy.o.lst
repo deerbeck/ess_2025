@@ -1,0 +1,151 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"memcpy.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c
+  19              		.section	.text.thumb2_memcpy,"ax",%progbits
+  20              		.align	1
+  21              		.global	thumb2_memcpy
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	thumb2_memcpy:
+  27              	.LVL0:
+  28              	.LFB3:
+   1:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** /* Copyright (C) 2013 - Adam Green (https://github.com/adamgreen)
+   2:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+   3:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    Licensed under the Apache License, Version 2.0 (the "License");
+   4:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    you may not use this file except in compliance with the License.
+   5:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    You may obtain a copy of the License at
+   6:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+   7:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****        http://www.apache.org/licenses/LICENSE-2.0
+   8:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+   9:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    Unless required by applicable law or agreed to in writing, software
+  10:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    distributed under the License is distributed on an "AS IS" BASIS,
+  11:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  12:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    See the License for the specific language governing permissions and
+  13:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    limitations under the License.
+  14:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** */
+  15:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+  16:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** #include <stdio.h>
+  17:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+  18:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** #if defined(__GNUC__)
+  19:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** /* This is a hand written Thumb-2 assembly language version of the
+  20:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    standard C memcpy() function that can be used by the lwIP networking
+  21:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    stack to improve its performance.  It copies 4 bytes at a time and
+  22:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****    unrolls the loop to perform 4 of these copies per loop iteration.
+  23:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** */
+  24:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** __attribute__((naked)) void thumb2_memcpy(void* pDest, const void* pSource, size_t length)
+  25:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** {
+  29              		.loc 1 25 1 view -0
+  30              		.cfi_startproc
+  31              		@ Naked Function: prologue and epilogue provided by programmer.
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  26:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****     __asm (
+  34              		.loc 1 26 5 view .LVU1
+  35              		.syntax unified
+  36              	@ 26 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c" 1
+  37              		.syntax unified
+  38              	.thumb
+  39 0000 1309     	    lsrs    r3, r2, #4
+  40 0002 11D0     	    beq.n   2$
+  41 0004 51F804CB 	1$: ldr     r12, [r1], #4
+  42 0008 40F804CB 	    str     r12, [r0], #4
+  43 000c 51F804CB 	    ldr     r12, [r1], #4
+  44 0010 40F804CB 	    str     r12, [r0], #4
+  45 0014 51F804CB 	    ldr     r12, [r1], #4
+  46 0018 40F804CB 	    str     r12, [r0], #4
+  47 001c 51F804CB 	    ldr     r12, [r1], #4
+  48 0020 40F804CB 	    str     r12, [r0], #4
+  49 0024 013B     	    subs    r3, #1
+  50 0026 EDD1     	    bne     1$
+  51              	2$:
+  52 0028 12F00F03 	    ands    r3, r2, #0xf
+  53 002c 05D0     	    beq.n   4$
+  54 002e 11F801CB 	3$: ldrb    r12, [r1], #1
+  55 0032 00F801CB 	    strb    r12, [r0], #1
+  56 0036 013B     	    subs    r3, #1
+  57 0038 F9D1     	    bne     3$
+  58 003a 7047     	4$: bx      lr
+  59              	
+  60              	@ 0 "" 2
+  27:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         ".syntax unified\n"
+  28:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         ".thumb\n"
+  29:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+  30:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         // Copy 16 bytes at a time first.
+  31:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    lsrs    r3, r2, #4\n"
+  32:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    beq.n   2$\n"
+  33:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "1$: ldr     r12, [r1], #4\n"
+  34:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    str     r12, [r0], #4\n"
+  35:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    ldr     r12, [r1], #4\n"
+  36:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    str     r12, [r0], #4\n"
+  37:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    ldr     r12, [r1], #4\n"
+  38:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    str     r12, [r0], #4\n"
+  39:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    ldr     r12, [r1], #4\n"
+  40:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    str     r12, [r0], #4\n"
+  41:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    subs    r3, #1\n"
+  42:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    bne     1$\n"
+  43:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+  44:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         // Copy byte by byte for what is left.
+  45:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "2$:\n"
+  46:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    ands    r3, r2, #0xf\n"
+  47:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    beq.n   4$\n"
+  48:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "3$: ldrb    r12, [r1], #1\n"
+  49:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    strb    r12, [r0], #1\n"
+  50:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    subs    r3, #1\n"
+  51:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "    bne     3$\n"
+  52:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** 
+  53:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         // Return to caller.
+  54:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****         "4$: bx      lr\n"
+  55:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c ****     );
+  56:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Common/memcpy.c **** }
+  61              		.loc 1 56 1 is_stmt 0 view .LVU2
+  62              		.thumb
+  63              		.syntax unified
+  64              		.cfi_endproc
+  65              	.LFE3:
+  67              		.text
+  68              	.Letext0:
+  69              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 memcpy.c
+     /tmp/cc5IrqTq.s:20     .text.thumb2_memcpy:00000000 $t
+     /tmp/cc5IrqTq.s:26     .text.thumb2_memcpy:00000000 thumb2_memcpy
+                           .group:00000000 wm4.0.4be6372613153b6292d63d4df696c1e1
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.newlib.h.27.07bf1b8b16da454ae07478107717878b
+                           .group:00000000 wm4.ieeefp.h.77.5ad60f72ea25fc152400b550ac118212
+                           .group:00000000 wm4.features.h.22.c11ecc6cb8b914ead0c0895c00b4b4d5
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stdio.h.31.7c0e28c411445f3f9c5b11accf882760
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.stddef.h.185.cbb642e1ccd385e8aa504b15cb7fb086
+                           .group:00000000 wm4.cdefs.h.49.a0dc0a4a6c7d01e2e5d0aade9399215f
+                           .group:00000000 wm4.stddef.h.39.880090fed2fc49559ce5228f8b65a2cf
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:00000000 wm4.reent.h.78.7f0775353a33c852a1479c008f68cd03
+                           .group:00000000 wm4.stdio.h.67.0cf8a9c281ab0b348aef5c02e7e48825
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.87.a1e20d2651f9bfb66e51bfbe849db00a
+
+NO UNDEFINED SYMBOLS

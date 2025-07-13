@@ -1,0 +1,972 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"packetizer.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "packetizer.c"
+  19              		.section	.text.packetizerReceiveByteBlocking,"ax",%progbits
+  20              		.align	1
+  21              		.global	packetizerReceiveByteBlocking
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	packetizerReceiveByteBlocking:
+  27              	.LFB193:
+   1:packetizer.c  **** /* Source file for parsing the packet protocol used in assignment 2
+   2:packetizer.c  ****  *
+   3:packetizer.c  ****  * Copyright 2018 TUM
+   4:packetizer.c  ****  * Created: 2018-11-15 Florian Wilde <florian.wilde@tum.de>
+   5:packetizer.c  ****  **************************************************************************************************
+   6:packetizer.c  **** 
+   7:packetizer.c  **** #include "VirtualSerial.h"
+   8:packetizer.c  **** #include "base64url.h"
+   9:packetizer.c  **** #include "packetizer.h"
+  10:packetizer.c  **** 
+  11:packetizer.c  **** int16_t packetizerReceiveByteBlocking(void) {
+  28              		.loc 1 11 45 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  12:packetizer.c  ****   /* Wait until at least one byte is received and if so return it */
+  13:packetizer.c  ****   while(CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) <= 0) {
+  37              		.loc 1 13 3 view .LVU1
+  38              		.loc 1 13 9 is_stmt 0 view .LVU2
+  39 0002 074C     		ldr	r4, .L5
+  40              		.loc 1 13 8 view .LVU3
+  41 0004 02E0     		b	.L2
+  42              	.L3:
+  14:packetizer.c  ****     CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+  43              		.loc 1 14 5 is_stmt 1 view .LVU4
+  44 0006 2046     		mov	r0, r4
+  45 0008 FFF7FEFF 		bl	CDC_Device_USBTask
+  46              	.LVL0:
+  47              	.L2:
+  13:packetizer.c  ****     CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+  48              		.loc 1 13 64 view .LVU5
+  13:packetizer.c  ****     CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+  49              		.loc 1 13 9 is_stmt 0 view .LVU6
+  50 000c 2046     		mov	r0, r4
+  51 000e FFF7FEFF 		bl	CDC_Device_BytesReceived
+  52              	.LVL1:
+  13:packetizer.c  ****     CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+  53              		.loc 1 13 64 discriminator 1 view .LVU7
+  54 0012 0028     		cmp	r0, #0
+  55 0014 F7D0     		beq	.L3
+  15:packetizer.c  ****   }
+  16:packetizer.c  ****   return CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+  56              		.loc 1 16 3 is_stmt 1 view .LVU8
+  57              		.loc 1 16 10 is_stmt 0 view .LVU9
+  58 0016 0248     		ldr	r0, .L5
+  59 0018 FFF7FEFF 		bl	CDC_Device_ReceiveByte
+  60              	.LVL2:
+  17:packetizer.c  **** }
+  61              		.loc 1 17 1 view .LVU10
+  62 001c 10BD     		pop	{r4, pc}
+  63              	.L6:
+  64 001e 00BF     		.align	2
+  65              	.L5:
+  66 0020 00000000 		.word	VirtualSerial_CDC_Interface
+  67              		.cfi_endproc
+  68              	.LFE193:
+  70              		.section	.text.packetizerReadHeader,"ax",%progbits
+  71              		.align	1
+  72              		.global	packetizerReadHeader
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  77              	packetizerReadHeader:
+  78              	.LVL3:
+  79              	.LFB194:
+  18:packetizer.c  **** 
+  19:packetizer.c  **** enum packetizerErrors packetizerReadHeader(pt_s *job) {
+  80              		.loc 1 19 55 is_stmt 1 view -0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 72
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              		.loc 1 19 55 is_stmt 0 view .LVU12
+  85 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  86              	.LCFI1:
+  87              		.cfi_def_cfa_offset 24
+  88              		.cfi_offset 4, -24
+  89              		.cfi_offset 5, -20
+  90              		.cfi_offset 6, -16
+  91              		.cfi_offset 7, -12
+  92              		.cfi_offset 8, -8
+  93              		.cfi_offset 14, -4
+  94 0004 92B0     		sub	sp, sp, #72
+  95              	.LCFI2:
+  96              		.cfi_def_cfa_offset 96
+  97 0006 0746     		mov	r7, r0
+  98              		.loc 1 19 55 view .LVU13
+  99 0008 384B     		ldr	r3, .L26
+ 100 000a 1B68     		ldr	r3, [r3]
+ 101 000c 1193     		str	r3, [sp, #68]
+ 102 000e 4FF00003 		mov	r3, #0
+  20:packetizer.c  ****   /* We received a start of header (SoH, 0x01) and now gather all the bytes that belong to the
+  21:packetizer.c  ****      header up to and including the start of text (SoT, 0x02) to see if the header is too long */
+  22:packetizer.c  ****   char headerB64[PACKETIZER_HEADER_B64_LEN] = { 0 };
+ 103              		.loc 1 22 3 is_stmt 1 view .LVU14
+ 104              		.loc 1 22 8 is_stmt 0 view .LVU15
+ 105 0012 2422     		movs	r2, #36
+ 106 0014 0021     		movs	r1, #0
+ 107 0016 08A8     		add	r0, sp, #32
+ 108              	.LVL4:
+ 109              		.loc 1 22 8 view .LVU16
+ 110 0018 FFF7FEFF 		bl	memset
+ 111              	.LVL5:
+  23:packetizer.c  ****   char header[PACKETIZER_HEADER_LEN] = { 0 };
+ 112              		.loc 1 23 3 is_stmt 1 view .LVU17
+ 113              		.loc 1 23 8 is_stmt 0 view .LVU18
+ 114 001c 0023     		movs	r3, #0
+ 115 001e 0193     		str	r3, [sp, #4]
+ 116 0020 0293     		str	r3, [sp, #8]
+ 117 0022 0393     		str	r3, [sp, #12]
+ 118 0024 0493     		str	r3, [sp, #16]
+ 119 0026 0593     		str	r3, [sp, #20]
+ 120 0028 0693     		str	r3, [sp, #24]
+ 121 002a CDF81B30 		str	r3, [sp, #27]	@ unaligned
+  24:packetizer.c  ****   size_t header_len = sizeof(header);
+ 122              		.loc 1 24 3 is_stmt 1 view .LVU19
+ 123              		.loc 1 24 10 is_stmt 0 view .LVU20
+ 124 002e 1B23     		movs	r3, #27
+ 125 0030 0093     		str	r3, [sp]
+  25:packetizer.c  ****   int16_t rbuf = 0;
+ 126              		.loc 1 25 3 is_stmt 1 view .LVU21
+ 127              	.LVL6:
+  26:packetizer.c  ****  
+  27:packetizer.c  ****   for(size_t headerB64idx = 0; headerB64idx < PACKETIZER_HEADER_B64_LEN; ) {
+ 128              		.loc 1 27 3 view .LVU22
+ 129              	.LBB2:
+ 130              		.loc 1 27 7 view .LVU23
+ 131              		.loc 1 27 7 is_stmt 0 view .LVU24
+ 132 0032 08AD     		add	r5, sp, #32
+ 133 0034 11AE     		add	r6, sp, #68
+ 134              	.LVL7:
+ 135              	.L9:
+ 136              		.loc 1 27 45 is_stmt 1 discriminator 1 view .LVU25
+ 137 0036 B542     		cmp	r5, r6
+ 138 0038 11D0     		beq	.L22
+  28:packetizer.c  ****     rbuf = packetizerReceiveByteBlocking();
+ 139              		.loc 1 28 5 view .LVU26
+ 140              		.loc 1 28 12 is_stmt 0 view .LVU27
+ 141 003a FFF7FEFF 		bl	packetizerReceiveByteBlocking
+ 142              	.LVL8:
+ 143 003e 0446     		mov	r4, r0
+ 144              	.LVL9:
+  29:packetizer.c  **** 
+  30:packetizer.c  ****     if(rbuf > 0xFF) {
+ 145              		.loc 1 30 5 is_stmt 1 view .LVU28
+ 146              		.loc 1 30 7 is_stmt 0 view .LVU29
+ 147 0040 FF28     		cmp	r0, #255
+ 148 0042 F8DC     		bgt	.L9
+  31:packetizer.c  ****       /* Error in CDC_Device_ReceiveByte(), ignore it */
+  32:packetizer.c  ****     } else if(rbuf == 0x02) {
+ 149              		.loc 1 32 12 is_stmt 1 view .LVU30
+ 150              		.loc 1 32 14 is_stmt 0 view .LVU31
+ 151 0044 0228     		cmp	r0, #2
+ 152 0046 46D0     		beq	.L14
+  33:packetizer.c  ****       /* A premature SoT means the header is too short */
+  34:packetizer.c  ****       return packetizer_HeaderIncorrectSize;
+  35:packetizer.c  ****     } else if(isbase64(rbuf) || rbuf == '=') {
+ 153              		.loc 1 35 12 is_stmt 1 view .LVU32
+ 154              		.loc 1 35 15 is_stmt 0 view .LVU33
+ 155 0048 5FFA80F8 		uxtb	r8, r0
+ 156 004c 4046     		mov	r0, r8
+ 157              	.LVL10:
+ 158              		.loc 1 35 15 view .LVU34
+ 159 004e FFF7FEFF 		bl	isbase64
+ 160              	.LVL11:
+ 161              		.loc 1 35 14 discriminator 1 view .LVU35
+ 162 0052 08B9     		cbnz	r0, .L11
+ 163              		.loc 1 35 30 discriminator 1 view .LVU36
+ 164 0054 3D2C     		cmp	r4, #61
+ 165 0056 40D1     		bne	.L15
+ 166              	.L11:
+  36:packetizer.c  ****       headerB64[headerB64idx++] = rbuf;
+ 167              		.loc 1 36 7 is_stmt 1 view .LVU37
+ 168              	.LVL12:
+ 169              		.loc 1 36 33 is_stmt 0 view .LVU38
+ 170 0058 05F8018B 		strb	r8, [r5], #1
+ 171              	.LVL13:
+ 172              		.loc 1 36 33 view .LVU39
+ 173 005c EBE7     		b	.L9
+ 174              	.LVL14:
+ 175              	.L22:
+ 176              		.loc 1 36 33 view .LVU40
+ 177              	.LBE2:
+  37:packetizer.c  ****     } else {
+  38:packetizer.c  ****       /* Return appropriate error if we encounter a character not in the base64url alphabet.
+  39:packetizer.c  ****          Because isbase64() considers padding to be not part of the alphabet, allow it also. */
+  40:packetizer.c  ****       return packetizer_IllegalCharacter;
+  41:packetizer.c  ****     }
+  42:packetizer.c  ****   }
+  43:packetizer.c  ****   /* Here we wait for the SoT to check that the header is not too long */
+  44:packetizer.c  ****   if(packetizerReceiveByteBlocking() != 0x02) {
+ 178              		.loc 1 44 3 is_stmt 1 view .LVU41
+ 179              		.loc 1 44 6 is_stmt 0 view .LVU42
+ 180 005e FFF7FEFF 		bl	packetizerReceiveByteBlocking
+ 181              	.LVL15:
+ 182              		.loc 1 44 5 discriminator 1 view .LVU43
+ 183 0062 0228     		cmp	r0, #2
+ 184 0064 0AD0     		beq	.L23
+  45:packetizer.c  ****     return packetizer_HeaderIncorrectSize;
+ 185              		.loc 1 45 12 view .LVU44
+ 186 0066 0220     		movs	r0, #2
+ 187              	.L10:
+  46:packetizer.c  ****   }
+  47:packetizer.c  ****   /* We received a header of correct size, so remove base64url encoding and put content into job */
+  48:packetizer.c  ****   if(base64_decode(headerB64, PACKETIZER_HEADER_B64_LEN, header, &header_len)) {
+  49:packetizer.c  ****     if(header_len == sizeof(header)) {
+  50:packetizer.c  ****       job->textLen = header[2] << 16 | header[1] << 8 | header[0];
+  51:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+  52:packetizer.c  ****       if(job->nonce != NULL) {
+  53:packetizer.c  ****         memcpy(job->nonce, header + 3, CRYPTO_NONCE_BYTES);
+  54:packetizer.c  ****       } else {
+  55:packetizer.c  ****         return packetizer_NonceAllocationFailed;
+  56:packetizer.c  ****       }
+  57:packetizer.c  ****     } else {
+  58:packetizer.c  ****       /* If decoded length does not match, header is also of incorrect length */
+  59:packetizer.c  ****       return packetizer_HeaderIncorrectSize;
+  60:packetizer.c  ****     }
+  61:packetizer.c  ****   } else {
+  62:packetizer.c  ****     /* Decoding failed, e.g. because padding was incorrect */
+  63:packetizer.c  ****     return packetizer_HeaderDecodingFailed;
+  64:packetizer.c  ****   }
+  65:packetizer.c  ****   return packetizer_Successful;
+  66:packetizer.c  **** }
+ 188              		.loc 1 66 1 view .LVU45
+ 189 0068 204B     		ldr	r3, .L26
+ 190 006a 1A68     		ldr	r2, [r3]
+ 191 006c 119B     		ldr	r3, [sp, #68]
+ 192 006e 5A40     		eors	r2, r3, r2
+ 193 0070 4FF00003 		mov	r3, #0
+ 194 0074 37D1     		bne	.L24
+ 195 0076 12B0     		add	sp, sp, #72
+ 196              	.LCFI3:
+ 197              		.cfi_remember_state
+ 198              		.cfi_def_cfa_offset 24
+ 199              		@ sp needed
+ 200 0078 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 201              	.LVL16:
+ 202              	.L23:
+ 203              	.LCFI4:
+ 204              		.cfi_restore_state
+  48:packetizer.c  ****     if(header_len == sizeof(header)) {
+ 205              		.loc 1 48 3 is_stmt 1 view .LVU46
+  48:packetizer.c  ****     if(header_len == sizeof(header)) {
+ 206              		.loc 1 48 6 is_stmt 0 view .LVU47
+ 207 007c 6B46     		mov	r3, sp
+ 208 007e 01AA     		add	r2, sp, #4
+ 209 0080 2421     		movs	r1, #36
+ 210 0082 08A8     		add	r0, sp, #32
+ 211 0084 FFF7FEFF 		bl	base64_decode
+ 212              	.LVL17:
+  48:packetizer.c  ****     if(header_len == sizeof(header)) {
+ 213              		.loc 1 48 5 discriminator 1 view .LVU48
+ 214 0088 48B3     		cbz	r0, .L17
+  49:packetizer.c  ****       job->textLen = header[2] << 16 | header[1] << 8 | header[0];
+ 215              		.loc 1 49 5 is_stmt 1 view .LVU49
+  49:packetizer.c  ****       job->textLen = header[2] << 16 | header[1] << 8 | header[0];
+ 216              		.loc 1 49 7 is_stmt 0 view .LVU50
+ 217 008a 009B     		ldr	r3, [sp]
+ 218 008c 1B2B     		cmp	r3, #27
+ 219 008e 01D0     		beq	.L25
+  59:packetizer.c  ****     }
+ 220              		.loc 1 59 14 view .LVU51
+ 221 0090 0220     		movs	r0, #2
+ 222 0092 E9E7     		b	.L10
+ 223              	.L25:
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 224              		.loc 1 50 7 is_stmt 1 view .LVU52
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 225              		.loc 1 50 28 is_stmt 0 view .LVU53
+ 226 0094 9DF80620 		ldrb	r2, [sp, #6]	@ zero_extendqisi2
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 227              		.loc 1 50 46 view .LVU54
+ 228 0098 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 229              		.loc 1 50 50 view .LVU55
+ 230 009c 1B02     		lsls	r3, r3, #8
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 231              		.loc 1 50 38 view .LVU56
+ 232 009e 43EA0243 		orr	r3, r3, r2, lsl #16
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 233              		.loc 1 50 63 view .LVU57
+ 234 00a2 9DF80420 		ldrb	r2, [sp, #4]	@ zero_extendqisi2
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 235              		.loc 1 50 55 view .LVU58
+ 236 00a6 1343     		orrs	r3, r3, r2
+  50:packetizer.c  ****       job->nonce = malloc(CRYPTO_NONCE_BYTES);
+ 237              		.loc 1 50 20 view .LVU59
+ 238 00a8 7B60     		str	r3, [r7, #4]
+  51:packetizer.c  ****       if(job->nonce != NULL) {
+ 239              		.loc 1 51 7 is_stmt 1 view .LVU60
+  51:packetizer.c  ****       if(job->nonce != NULL) {
+ 240              		.loc 1 51 20 is_stmt 0 view .LVU61
+ 241 00aa 1820     		movs	r0, #24
+ 242 00ac FFF7FEFF 		bl	malloc
+ 243              	.LVL18:
+ 244 00b0 0446     		mov	r4, r0
+  51:packetizer.c  ****       if(job->nonce != NULL) {
+ 245              		.loc 1 51 18 discriminator 1 view .LVU62
+ 246 00b2 B860     		str	r0, [r7, #8]
+  52:packetizer.c  ****         memcpy(job->nonce, header + 3, CRYPTO_NONCE_BYTES);
+ 247              		.loc 1 52 7 is_stmt 1 view .LVU63
+  52:packetizer.c  ****         memcpy(job->nonce, header + 3, CRYPTO_NONCE_BYTES);
+ 248              		.loc 1 52 9 is_stmt 0 view .LVU64
+ 249 00b4 A8B1     		cbz	r0, .L19
+  53:packetizer.c  ****       } else {
+ 250              		.loc 1 53 9 is_stmt 1 view .LVU65
+ 251 00b6 DDF80700 		ldr	r0, [sp, #7]	@ unaligned
+ 252 00ba DDF80B10 		ldr	r1, [sp, #11]	@ unaligned
+ 253 00be DDF80F20 		ldr	r2, [sp, #15]	@ unaligned
+ 254 00c2 DDF81330 		ldr	r3, [sp, #19]	@ unaligned
+ 255 00c6 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 256 00c8 DDF81700 		ldr	r0, [sp, #23]	@ unaligned
+ 257 00cc DDF81B10 		ldr	r1, [sp, #27]	@ unaligned
+ 258 00d0 03C4     		stmia	r4!, {r0, r1}
+  65:packetizer.c  **** }
+ 259              		.loc 1 65 3 view .LVU66
+  65:packetizer.c  **** }
+ 260              		.loc 1 65 10 is_stmt 0 view .LVU67
+ 261 00d2 0020     		movs	r0, #0
+ 262 00d4 C8E7     		b	.L10
+ 263              	.LVL19:
+ 264              	.L14:
+ 265              	.LBB3:
+  34:packetizer.c  ****     } else if(isbase64(rbuf) || rbuf == '=') {
+ 266              		.loc 1 34 14 view .LVU68
+ 267 00d6 0220     		movs	r0, #2
+ 268              	.LVL20:
+  34:packetizer.c  ****     } else if(isbase64(rbuf) || rbuf == '=') {
+ 269              		.loc 1 34 14 view .LVU69
+ 270 00d8 C6E7     		b	.L10
+ 271              	.L15:
+  40:packetizer.c  ****     }
+ 272              		.loc 1 40 14 view .LVU70
+ 273 00da 0120     		movs	r0, #1
+ 274 00dc C4E7     		b	.L10
+ 275              	.LVL21:
+ 276              	.L17:
+  40:packetizer.c  ****     }
+ 277              		.loc 1 40 14 view .LVU71
+ 278              	.LBE3:
+  63:packetizer.c  ****   }
+ 279              		.loc 1 63 12 view .LVU72
+ 280 00de 0320     		movs	r0, #3
+ 281 00e0 C2E7     		b	.L10
+ 282              	.L19:
+  55:packetizer.c  ****       }
+ 283              		.loc 1 55 16 view .LVU73
+ 284 00e2 0420     		movs	r0, #4
+ 285 00e4 C0E7     		b	.L10
+ 286              	.L24:
+ 287              		.loc 1 66 1 view .LVU74
+ 288 00e6 FFF7FEFF 		bl	__stack_chk_fail
+ 289              	.LVL22:
+ 290              	.L27:
+ 291 00ea 00BF     		.align	2
+ 292              	.L26:
+ 293 00ec 00000000 		.word	__stack_chk_guard
+ 294              		.cfi_endproc
+ 295              	.LFE194:
+ 297              		.section	.text.packetizerReadText,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	packetizerReadText
+ 300              		.syntax unified
+ 301              		.thumb
+ 302              		.thumb_func
+ 304              	packetizerReadText:
+ 305              	.LVL23:
+ 306              	.LFB195:
+  67:packetizer.c  **** 
+  68:packetizer.c  **** enum packetizerErrors packetizerReadText(pt_s *job) {
+ 307              		.loc 1 68 53 is_stmt 1 view -0
+ 308              		.cfi_startproc
+ 309              		@ args = 0, pretend = 0, frame = 8
+ 310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 311              		.loc 1 68 53 is_stmt 0 view .LVU76
+ 312 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 313              	.LCFI5:
+ 314              		.cfi_def_cfa_offset 32
+ 315              		.cfi_offset 4, -32
+ 316              		.cfi_offset 5, -28
+ 317              		.cfi_offset 6, -24
+ 318              		.cfi_offset 7, -20
+ 319              		.cfi_offset 8, -16
+ 320              		.cfi_offset 9, -12
+ 321              		.cfi_offset 10, -8
+ 322              		.cfi_offset 14, -4
+ 323 0004 82B0     		sub	sp, sp, #8
+ 324              	.LCFI6:
+ 325              		.cfi_def_cfa_offset 40
+ 326 0006 0546     		mov	r5, r0
+  69:packetizer.c  ****   /* We received a correct header, now allocate space for the text and receive it up to and
+  70:packetizer.c  ****      including the end of text (EoT, 0x03) to see if the text is too long. Then remove base64url
+  71:packetizer.c  ****      encoding */
+  72:packetizer.c  ****   enum packetizerErrors ret = packetizer_Successful;
+ 327              		.loc 1 72 3 is_stmt 1 view .LVU77
+ 328              	.LVL24:
+  73:packetizer.c  ****   int16_t rbuf = 0;
+ 329              		.loc 1 73 3 view .LVU78
+  74:packetizer.c  ****   size_t textB64_len = job->textLen * sizeof(char), text_len = 0;
+ 330              		.loc 1 74 3 view .LVU79
+ 331              		.loc 1 74 10 is_stmt 0 view .LVU80
+ 332 0008 D0F80480 		ldr	r8, [r0, #4]
+ 333              	.LVL25:
+ 334              		.loc 1 74 53 view .LVU81
+ 335 000c 0024     		movs	r4, #0
+ 336 000e 0094     		str	r4, [sp]
+  75:packetizer.c  ****   char *textB64 = calloc(job->textLen, sizeof(char)), *text = NULL;
+ 337              		.loc 1 75 3 is_stmt 1 view .LVU82
+ 338              		.loc 1 75 19 is_stmt 0 view .LVU83
+ 339 0010 0121     		movs	r1, #1
+ 340 0012 4046     		mov	r0, r8
+ 341              	.LVL26:
+ 342              		.loc 1 75 19 view .LVU84
+ 343 0014 FFF7FEFF 		bl	calloc
+ 344              	.LVL27:
+ 345              		.loc 1 75 56 discriminator 1 view .LVU85
+ 346 0018 0194     		str	r4, [sp, #4]
+  76:packetizer.c  ****   if(textB64 == NULL) {
+ 347              		.loc 1 76 3 is_stmt 1 view .LVU86
+ 348              		.loc 1 76 5 is_stmt 0 view .LVU87
+ 349 001a 58B3     		cbz	r0, .L38
+ 350 001c 0746     		mov	r7, r0
+ 351 001e 00F1FF39 		add	r9, r0, #-1
+ 352              	.LBB4:
+  77:packetizer.c  ****     return packetizer_TextAllocationFailed;
+  78:packetizer.c  ****   }
+  79:packetizer.c  ****  
+  80:packetizer.c  ****   /* Allocate memory for text (in base64 yet) and receive it */
+  81:packetizer.c  ****   for(size_t textB64idx = 0; textB64idx < job->textLen; ) {
+ 353              		.loc 1 81 14 view .LVU88
+ 354 0022 2646     		mov	r6, r4
+ 355              	.LVL28:
+ 356              	.L31:
+ 357              		.loc 1 81 41 is_stmt 1 discriminator 1 view .LVU89
+ 358 0024 6B68     		ldr	r3, [r5, #4]
+ 359 0026 B342     		cmp	r3, r6
+ 360 0028 2AD9     		bls	.L49
+  82:packetizer.c  ****     rbuf = packetizerReceiveByteBlocking();
+ 361              		.loc 1 82 5 view .LVU90
+ 362              		.loc 1 82 12 is_stmt 0 view .LVU91
+ 363 002a FFF7FEFF 		bl	packetizerReceiveByteBlocking
+ 364              	.LVL29:
+ 365 002e 0446     		mov	r4, r0
+ 366              	.LVL30:
+  83:packetizer.c  **** 
+  84:packetizer.c  ****     if(rbuf > 0xFF) {
+ 367              		.loc 1 84 5 is_stmt 1 view .LVU92
+ 368              		.loc 1 84 7 is_stmt 0 view .LVU93
+ 369 0030 FF28     		cmp	r0, #255
+ 370 0032 F7DC     		bgt	.L31
+  85:packetizer.c  ****       /* Error in CDC_Device_ReceiveByte(), ignore it */
+  86:packetizer.c  ****     } else if(rbuf == 0x03) {
+ 371              		.loc 1 86 12 is_stmt 1 view .LVU94
+ 372              		.loc 1 86 14 is_stmt 0 view .LVU95
+ 373 0034 0328     		cmp	r0, #3
+ 374 0036 1FD0     		beq	.L39
+  87:packetizer.c  ****       /* A premature EoT means the text is too short */
+  88:packetizer.c  ****       ret = packetizer_TextIncorrectSize;
+  89:packetizer.c  ****       break;
+  90:packetizer.c  ****     } else if(isbase64(rbuf) || rbuf == '=') {
+ 375              		.loc 1 90 12 is_stmt 1 view .LVU96
+ 376              		.loc 1 90 15 is_stmt 0 view .LVU97
+ 377 0038 5FFA80FA 		uxtb	r10, r0
+ 378 003c 5046     		mov	r0, r10
+ 379              	.LVL31:
+ 380              		.loc 1 90 15 view .LVU98
+ 381 003e FFF7FEFF 		bl	isbase64
+ 382              	.LVL32:
+ 383              		.loc 1 90 14 discriminator 1 view .LVU99
+ 384 0042 08B9     		cbnz	r0, .L33
+ 385              		.loc 1 90 30 discriminator 1 view .LVU100
+ 386 0044 3D2C     		cmp	r4, #61
+ 387 0046 19D1     		bne	.L40
+ 388              	.L33:
+  91:packetizer.c  ****       textB64[textB64idx++] = rbuf;
+ 389              		.loc 1 91 7 is_stmt 1 view .LVU101
+ 390              		.loc 1 91 25 is_stmt 0 view .LVU102
+ 391 0048 0136     		adds	r6, r6, #1
+ 392              	.LVL33:
+ 393              		.loc 1 91 29 view .LVU103
+ 394 004a 09F801AF 		strb	r10, [r9, #1]!
+ 395 004e E9E7     		b	.L31
+ 396              	.LVL34:
+ 397              	.L50:
+ 398              		.loc 1 91 29 view .LVU104
+ 399              	.LBE4:
+  92:packetizer.c  ****     } else {
+  93:packetizer.c  ****       /* Return appropriate error if we encounter a character not in the base64url alphabet.
+  94:packetizer.c  ****          Because isbase64() considers padding to be not part of the alphabet, allow it also. */
+  95:packetizer.c  ****       ret = packetizer_IllegalCharacter;
+  96:packetizer.c  ****       break;
+  97:packetizer.c  ****     }
+  98:packetizer.c  ****   }
+  99:packetizer.c  ****   if(ret == packetizer_Successful) {
+ 100:packetizer.c  ****     /* Here we wait for the EoT to check that the text is not too long */
+ 101:packetizer.c  ****     if(packetizerReceiveByteBlocking() != 0x03) {
+ 102:packetizer.c  ****       ret = packetizer_TextIncorrectSize;
+ 103:packetizer.c  ****     }
+ 104:packetizer.c  ****   }
+ 105:packetizer.c  ****   if(ret == packetizer_Successful) {
+ 400              		.loc 1 105 3 is_stmt 1 view .LVU105
+ 106:packetizer.c  ****     /* We received a text of correct size, so remove base64url encoding and put link into job */
+ 107:packetizer.c  ****     if(base64_decode_alloc(textB64, textB64_len, &text, &text_len)) {
+ 401              		.loc 1 107 5 view .LVU106
+ 402              		.loc 1 107 8 is_stmt 0 view .LVU107
+ 403 0050 6B46     		mov	r3, sp
+ 404 0052 01AA     		add	r2, sp, #4
+ 405 0054 4146     		mov	r1, r8
+ 406 0056 3846     		mov	r0, r7
+ 407 0058 FFF7FEFF 		bl	base64_decode_alloc
+ 408              	.LVL35:
+ 409              		.loc 1 107 7 discriminator 1 view .LVU108
+ 410 005c 30B1     		cbz	r0, .L41
+ 108:packetizer.c  ****       job->textLen = text_len;
+ 411              		.loc 1 108 7 is_stmt 1 view .LVU109
+ 412              		.loc 1 108 20 is_stmt 0 view .LVU110
+ 413 005e 009B     		ldr	r3, [sp]
+ 414 0060 6B60     		str	r3, [r5, #4]
+ 109:packetizer.c  ****       if(text != NULL) {
+ 415              		.loc 1 109 7 is_stmt 1 view .LVU111
+ 416              		.loc 1 109 15 is_stmt 0 view .LVU112
+ 417 0062 019B     		ldr	r3, [sp, #4]
+ 418              		.loc 1 109 9 view .LVU113
+ 419 0064 23B1     		cbz	r3, .L42
+ 110:packetizer.c  ****         job->text = (uint8_t *) text;
+ 420              		.loc 1 110 9 is_stmt 1 view .LVU114
+ 421              		.loc 1 110 19 is_stmt 0 view .LVU115
+ 422 0066 2B60     		str	r3, [r5]
+ 423 0068 0024     		movs	r4, #0
+ 424 006a 0EE0     		b	.L36
+ 425              	.L41:
+ 111:packetizer.c  ****       } else {
+ 112:packetizer.c  ****         /* If text pointer is NULL, malloc failed */
+ 113:packetizer.c  ****         ret = packetizer_TextAllocationFailed;
+ 114:packetizer.c  ****       }
+ 115:packetizer.c  ****     } else {
+ 116:packetizer.c  ****       /* Decoding failed, e.g. because padding was incorrect */
+ 117:packetizer.c  ****       ret = packetizer_TextDecodingFailed;
+ 426              		.loc 1 117 11 view .LVU116
+ 427 006c 0724     		movs	r4, #7
+ 428 006e 0CE0     		b	.L36
+ 429              	.L42:
+ 113:packetizer.c  ****       }
+ 430              		.loc 1 113 13 view .LVU117
+ 431 0070 0524     		movs	r4, #5
+ 432 0072 0AE0     		b	.L36
+ 433              	.LVL36:
+ 434              	.L38:
+  77:packetizer.c  ****   }
+ 435              		.loc 1 77 12 view .LVU118
+ 436 0074 0524     		movs	r4, #5
+ 437 0076 0BE0     		b	.L46
+ 438              	.LVL37:
+ 439              	.L39:
+ 440              	.LBB5:
+  88:packetizer.c  ****       break;
+ 441              		.loc 1 88 11 view .LVU119
+ 442 0078 0624     		movs	r4, #6
+ 443 007a 06E0     		b	.L36
+ 444              	.LVL38:
+ 445              	.L40:
+  95:packetizer.c  ****       break;
+ 446              		.loc 1 95 11 view .LVU120
+ 447 007c 0124     		movs	r4, #1
+ 448              	.LVL39:
+  95:packetizer.c  ****       break;
+ 449              		.loc 1 95 11 view .LVU121
+ 450              	.LBE5:
+  99:packetizer.c  ****     /* Here we wait for the EoT to check that the text is not too long */
+ 451              		.loc 1 99 3 is_stmt 1 view .LVU122
+ 452 007e 04E0     		b	.L36
+ 453              	.LVL40:
+ 454              	.L49:
+  99:packetizer.c  ****     /* Here we wait for the EoT to check that the text is not too long */
+ 455              		.loc 1 99 3 view .LVU123
+ 101:packetizer.c  ****       ret = packetizer_TextIncorrectSize;
+ 456              		.loc 1 101 5 view .LVU124
+ 101:packetizer.c  ****       ret = packetizer_TextIncorrectSize;
+ 457              		.loc 1 101 8 is_stmt 0 view .LVU125
+ 458 0080 FFF7FEFF 		bl	packetizerReceiveByteBlocking
+ 459              	.LVL41:
+ 101:packetizer.c  ****       ret = packetizer_TextIncorrectSize;
+ 460              		.loc 1 101 7 discriminator 1 view .LVU126
+ 461 0084 0328     		cmp	r0, #3
+ 462 0086 E3D0     		beq	.L50
+ 102:packetizer.c  ****     }
+ 463              		.loc 1 102 11 view .LVU127
+ 464 0088 0624     		movs	r4, #6
+ 465              	.LVL42:
+ 466              	.L36:
+ 118:packetizer.c  ****     }
+ 119:packetizer.c  ****   }
+ 120:packetizer.c  **** 
+ 121:packetizer.c  ****   /* Regardless of our outcome, we have to free the textB64, because we loose the pointer to it on
+ 122:packetizer.c  ****      return */
+ 123:packetizer.c  ****   free(textB64);
+ 467              		.loc 1 123 3 is_stmt 1 view .LVU128
+ 468 008a 3846     		mov	r0, r7
+ 469 008c FFF7FEFF 		bl	free
+ 470              	.LVL43:
+ 124:packetizer.c  ****   return ret;
+ 471              		.loc 1 124 3 view .LVU129
+ 472              	.L46:
+ 125:packetizer.c  **** }
+ 473              		.loc 1 125 1 is_stmt 0 view .LVU130
+ 474 0090 2046     		mov	r0, r4
+ 475 0092 02B0     		add	sp, sp, #8
+ 476              	.LCFI7:
+ 477              		.cfi_def_cfa_offset 32
+ 478              		@ sp needed
+ 479 0094 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 480              		.loc 1 125 1 view .LVU131
+ 481              		.cfi_endproc
+ 482              	.LFE195:
+ 484              		.section	.text.packetizerReceive,"ax",%progbits
+ 485              		.align	1
+ 486              		.global	packetizerReceive
+ 487              		.syntax unified
+ 488              		.thumb
+ 489              		.thumb_func
+ 491              	packetizerReceive:
+ 492              	.LVL44:
+ 493              	.LFB196:
+ 126:packetizer.c  ****   
+ 127:packetizer.c  **** enum packetizerErrors packetizerReceive(pt_s *job) {
+ 494              		.loc 1 127 52 is_stmt 1 view -0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 0
+ 497              		@ frame_needed = 0, uses_anonymous_args = 0
+ 498              		.loc 1 127 52 is_stmt 0 view .LVU133
+ 499 0000 10B5     		push	{r4, lr}
+ 500              	.LCFI8:
+ 501              		.cfi_def_cfa_offset 8
+ 502              		.cfi_offset 4, -8
+ 503              		.cfi_offset 14, -4
+ 504 0002 0446     		mov	r4, r0
+ 128:packetizer.c  ****   enum packetizerErrors ret;
+ 505              		.loc 1 128 3 is_stmt 1 view .LVU134
+ 129:packetizer.c  **** 
+ 130:packetizer.c  ****   /* Discard bytes until we find a start of header (SoH, 0x01) */
+ 131:packetizer.c  ****   while(packetizerReceiveByteBlocking() != 0x01);
+ 506              		.loc 1 131 3 view .LVU135
+ 507              	.LVL45:
+ 508              	.L52:
+ 509              		.loc 1 131 41 discriminator 1 view .LVU136
+ 510              		.loc 1 131 9 is_stmt 0 discriminator 1 view .LVU137
+ 511 0004 FFF7FEFF 		bl	packetizerReceiveByteBlocking
+ 512              	.LVL46:
+ 513              		.loc 1 131 41 discriminator 1 view .LVU138
+ 514 0008 0128     		cmp	r0, #1
+ 515 000a FBD1     		bne	.L52
+ 132:packetizer.c  ****   /* Read header and fill in job or forward error */
+ 133:packetizer.c  ****   ret = packetizerReadHeader(job);
+ 516              		.loc 1 133 3 is_stmt 1 view .LVU139
+ 517              		.loc 1 133 9 is_stmt 0 view .LVU140
+ 518 000c 2046     		mov	r0, r4
+ 519 000e FFF7FEFF 		bl	packetizerReadHeader
+ 520              	.LVL47:
+ 134:packetizer.c  ****   if(ret != packetizer_Successful) {
+ 521              		.loc 1 134 3 is_stmt 1 view .LVU141
+ 522              		.loc 1 134 5 is_stmt 0 view .LVU142
+ 523 0012 00B1     		cbz	r0, .L56
+ 524              	.L53:
+ 135:packetizer.c  ****     return ret;
+ 136:packetizer.c  ****   }
+ 137:packetizer.c  ****   /* Read text and add link to it to job or forward error */
+ 138:packetizer.c  ****   ret = packetizerReadText(job);
+ 139:packetizer.c  ****   if(ret != packetizer_Successful) {
+ 140:packetizer.c  ****     return ret;
+ 141:packetizer.c  ****   }
+ 142:packetizer.c  ****   return packetizer_Successful;
+ 143:packetizer.c  **** }
+ 525              		.loc 1 143 1 view .LVU143
+ 526 0014 10BD     		pop	{r4, pc}
+ 527              	.LVL48:
+ 528              	.L56:
+ 138:packetizer.c  ****   if(ret != packetizer_Successful) {
+ 529              		.loc 1 138 3 is_stmt 1 view .LVU144
+ 138:packetizer.c  ****   if(ret != packetizer_Successful) {
+ 530              		.loc 1 138 9 is_stmt 0 view .LVU145
+ 531 0016 2046     		mov	r0, r4
+ 532              	.LVL49:
+ 138:packetizer.c  ****   if(ret != packetizer_Successful) {
+ 533              		.loc 1 138 9 view .LVU146
+ 534 0018 FFF7FEFF 		bl	packetizerReadText
+ 535              	.LVL50:
+ 139:packetizer.c  ****     return ret;
+ 536              		.loc 1 139 3 is_stmt 1 view .LVU147
+ 537 001c FAE7     		b	.L53
+ 538              		.cfi_endproc
+ 539              	.LFE196:
+ 541              		.section	.text.packetizerSend,"ax",%progbits
+ 542              		.align	1
+ 543              		.global	packetizerSend
+ 544              		.syntax unified
+ 545              		.thumb
+ 546              		.thumb_func
+ 548              	packetizerSend:
+ 549              	.LVL51:
+ 550              	.LFB197:
+ 144:packetizer.c  **** 
+ 145:packetizer.c  **** enum packetizerErrors packetizerSend(ct_s *output) {
+ 551              		.loc 1 145 52 view -0
+ 552              		.cfi_startproc
+ 553              		@ args = 0, pretend = 0, frame = 8
+ 554              		@ frame_needed = 0, uses_anonymous_args = 0
+ 555              		.loc 1 145 52 is_stmt 0 view .LVU149
+ 556 0000 30B5     		push	{r4, r5, lr}
+ 557              	.LCFI9:
+ 558              		.cfi_def_cfa_offset 12
+ 559              		.cfi_offset 4, -12
+ 560              		.cfi_offset 5, -8
+ 561              		.cfi_offset 14, -4
+ 562 0002 83B0     		sub	sp, sp, #12
+ 563              	.LCFI10:
+ 564              		.cfi_def_cfa_offset 24
+ 565 0004 0446     		mov	r4, r0
+ 146:packetizer.c  ****   enum packetizerErrors ret = packetizer_Successful;
+ 566              		.loc 1 146 3 is_stmt 1 view .LVU150
+ 567              	.LVL52:
+ 147:packetizer.c  ****   char *textB64 = NULL;
+ 568              		.loc 1 147 3 view .LVU151
+ 569              		.loc 1 147 9 is_stmt 0 view .LVU152
+ 570 0006 0023     		movs	r3, #0
+ 571 0008 0193     		str	r3, [sp, #4]
+ 148:packetizer.c  ****   size_t textB64_len = 0;
+ 572              		.loc 1 148 3 is_stmt 1 view .LVU153
+ 573              	.LVL53:
+ 149:packetizer.c  **** 
+ 150:packetizer.c  ****   /* Encode ciphertext into base64url, return fail if not successful */
+ 151:packetizer.c  ****   textB64_len = base64_encode_alloc((char *) output->text, output->textLen, &textB64);
+ 574              		.loc 1 151 3 view .LVU154
+ 575              		.loc 1 151 17 is_stmt 0 view .LVU155
+ 576 000a 01AA     		add	r2, sp, #4
+ 577 000c 4168     		ldr	r1, [r0, #4]
+ 578 000e 0068     		ldr	r0, [r0]
+ 579              	.LVL54:
+ 580              		.loc 1 151 17 view .LVU156
+ 581 0010 FFF7FEFF 		bl	base64_encode_alloc
+ 582              	.LVL55:
+ 583 0014 0546     		mov	r5, r0
+ 584              	.LVL56:
+ 152:packetizer.c  ****   if(textB64 == NULL) {
+ 585              		.loc 1 152 3 is_stmt 1 view .LVU157
+ 586              		.loc 1 152 5 is_stmt 0 view .LVU158
+ 587 0016 019B     		ldr	r3, [sp, #4]
+ 588 0018 83B1     		cbz	r3, .L63
+ 153:packetizer.c  ****     if(output->textLen > 0 && textB64_len <= 0) {
+ 154:packetizer.c  ****       /* Size computation overflow in base64url.c */
+ 155:packetizer.c  ****       ret = packetizer_CiphertextTooLarge;
+ 156:packetizer.c  ****     } else {
+ 157:packetizer.c  ****       ret = packetizer_CiphertextAllocationFailed;
+ 158:packetizer.c  ****     }
+ 159:packetizer.c  ****   } else {
+ 160:packetizer.c  ****     CDC_Device_SendByte(&VirtualSerial_CDC_Interface, 0x02);
+ 589              		.loc 1 160 5 is_stmt 1 view .LVU159
+ 590 001a 0D4C     		ldr	r4, .L64
+ 591              	.LVL57:
+ 592              		.loc 1 160 5 is_stmt 0 view .LVU160
+ 593 001c 0221     		movs	r1, #2
+ 594 001e 2046     		mov	r0, r4
+ 595              	.LVL58:
+ 596              		.loc 1 160 5 view .LVU161
+ 597 0020 FFF7FEFF 		bl	CDC_Device_SendByte
+ 598              	.LVL59:
+ 161:packetizer.c  ****     CDC_Device_SendData(&VirtualSerial_CDC_Interface, textB64, textB64_len);
+ 599              		.loc 1 161 5 is_stmt 1 view .LVU162
+ 600 0024 AAB2     		uxth	r2, r5
+ 601 0026 0199     		ldr	r1, [sp, #4]
+ 602 0028 2046     		mov	r0, r4
+ 603 002a FFF7FEFF 		bl	CDC_Device_SendData
+ 604              	.LVL60:
+ 162:packetizer.c  ****     CDC_Device_SendByte(&VirtualSerial_CDC_Interface, 0x03);
+ 605              		.loc 1 162 5 view .LVU163
+ 606 002e 0321     		movs	r1, #3
+ 607 0030 2046     		mov	r0, r4
+ 608 0032 FFF7FEFF 		bl	CDC_Device_SendByte
+ 609              	.LVL61:
+ 146:packetizer.c  ****   char *textB64 = NULL;
+ 610              		.loc 1 146 25 is_stmt 0 view .LVU164
+ 611 0036 0020     		movs	r0, #0
+ 612              	.L59:
+ 613              	.LVL62:
+ 163:packetizer.c  ****   }
+ 164:packetizer.c  **** 
+ 165:packetizer.c  ****   return ret;
+ 614              		.loc 1 165 3 is_stmt 1 view .LVU165
+ 166:packetizer.c  **** }
+ 615              		.loc 1 166 1 is_stmt 0 view .LVU166
+ 616 0038 03B0     		add	sp, sp, #12
+ 617              	.LCFI11:
+ 618              		.cfi_remember_state
+ 619              		.cfi_def_cfa_offset 12
+ 620              		@ sp needed
+ 621 003a 30BD     		pop	{r4, r5, pc}
+ 622              	.LVL63:
+ 623              	.L63:
+ 624              	.LCFI12:
+ 625              		.cfi_restore_state
+ 153:packetizer.c  ****       /* Size computation overflow in base64url.c */
+ 626              		.loc 1 153 5 is_stmt 1 view .LVU167
+ 153:packetizer.c  ****       /* Size computation overflow in base64url.c */
+ 627              		.loc 1 153 7 is_stmt 0 view .LVU168
+ 628 003c 6368     		ldr	r3, [r4, #4]
+ 629 003e 23B1     		cbz	r3, .L60
+ 157:packetizer.c  ****     }
+ 630              		.loc 1 157 11 view .LVU169
+ 631 0040 0028     		cmp	r0, #0
+ 632 0042 0CBF     		ite	eq
+ 633 0044 0920     		moveq	r0, #9
+ 634              	.LVL64:
+ 157:packetizer.c  ****     }
+ 635              		.loc 1 157 11 view .LVU170
+ 636 0046 0820     		movne	r0, #8
+ 637 0048 F6E7     		b	.L59
+ 638              	.LVL65:
+ 639              	.L60:
+ 157:packetizer.c  ****     }
+ 640              		.loc 1 157 11 view .LVU171
+ 641 004a 0820     		movs	r0, #8
+ 642              	.LVL66:
+ 157:packetizer.c  ****     }
+ 643              		.loc 1 157 11 view .LVU172
+ 644 004c F4E7     		b	.L59
+ 645              	.L65:
+ 646 004e 00BF     		.align	2
+ 647              	.L64:
+ 648 0050 00000000 		.word	VirtualSerial_CDC_Interface
+ 649              		.cfi_endproc
+ 650              	.LFE197:
+ 652              		.text
+ 653              	.Letext0:
+ 654              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 655              		.file 3 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 656              		.file 4 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/..
+ 657              		.file 5 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Class/Device/..
+ 658              		.file 6 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Class/Device/CD
+ 659              		.file 7 "packetizer.h"
+ 660              		.file 8 "base64url.h"
+ 661              		.file 9 "/usr/include/newlib/stdlib.h"
+ 662              		.file 10 "/usr/include/newlib/string.h"
+ 663              		.file 11 "VirtualSerial.h"
+ 664              		.file 12 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 packetizer.c
+     /tmp/cc02C79w.s:20     .text.packetizerReceiveByteBlocking:00000000 $t
+     /tmp/cc02C79w.s:26     .text.packetizerReceiveByteBlocking:00000000 packetizerReceiveByteBlocking
+     /tmp/cc02C79w.s:66     .text.packetizerReceiveByteBlocking:00000020 $d
+     /tmp/cc02C79w.s:71     .text.packetizerReadHeader:00000000 $t
+     /tmp/cc02C79w.s:77     .text.packetizerReadHeader:00000000 packetizerReadHeader
+     /tmp/cc02C79w.s:293    .text.packetizerReadHeader:000000ec $d
+     /tmp/cc02C79w.s:298    .text.packetizerReadText:00000000 $t
+     /tmp/cc02C79w.s:304    .text.packetizerReadText:00000000 packetizerReadText
+     /tmp/cc02C79w.s:485    .text.packetizerReceive:00000000 $t
+     /tmp/cc02C79w.s:491    .text.packetizerReceive:00000000 packetizerReceive
+     /tmp/cc02C79w.s:542    .text.packetizerSend:00000000 $t
+     /tmp/cc02C79w.s:548    .text.packetizerSend:00000000 packetizerSend
+     /tmp/cc02C79w.s:648    .text.packetizerSend:00000050 $d
+                           .group:00000000 wm4.0.4be6372613153b6292d63d4df696c1e1
+                           .group:00000000 wm4.USB.h.376.cfdb9ecb25c70fec676f585dede264a7
+                           .group:00000000 wm4.Common.h.60.c2f00e237f5994003db83c2422602b22
+                           .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:00000000 wm4.stdbool.h.29.c08aa3eec75cf5b9b5003883f43253f0
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.newlib.h.27.07bf1b8b16da454ae07478107717878b
+                           .group:00000000 wm4.ieeefp.h.77.5ad60f72ea25fc152400b550ac118212
+                           .group:00000000 wm4.features.h.22.c11ecc6cb8b914ead0c0895c00b4b4d5
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.cdefs.h.49.a0dc0a4a6c7d01e2e5d0aade9399215f
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:00000000 wm4.reent.h.78.7f0775353a33c852a1479c008f68cd03
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.BoardTypes.h.52.ca64813ccee737bcc2115eab5e075fdb
+                           .group:00000000 wm4.CompilerSpecific.h.55.4a5e5ff77cd35e49c89cf2115251aee0
+                           .group:00000000 wm4.Attributes.h.56.73b3ee26b0836c2dec569a5fa6f1b355
+                           .group:00000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
+                           .group:00000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
+                           .group:00000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
+                           .group:00000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
+                           .group:00000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
+                           .group:00000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
+                           .group:00000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
+                           .group:00000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
+                           .group:00000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
+                           .group:00000000 wm4.Endianness.h.57.3ac00c5468f4b91b806a0e6dba047e9c
+                           .group:00000000 wm4.Common.h.105.4b937a9cc9dcdb26c3f07541b0b763a8
+                           .group:00000000 wm4.USBController.h.49.cbfc73805155b6fff6267400af3f4eec
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.f4862cfbf4363a1db01842d5bdf72c18
+                           .group:00000000 wm4.xmc_usbd_regs.h.80.57c6c85fa0ecbc9f8327ce445aebb9bc
+                           .group:00000000 wm4.xmc4_scu.h.83.0449f5880ac071460ec1a8072311ea51
+                           .group:00000000 wm4.xmc_usbd.h.122.ce57a9e6a9da48ee33ece02813c49593
+                           .group:00000000 wm4.USBController_XMC4000.h.71.902f2653e09cb8b25245faa82cc6b907
+                           .group:00000000 wm4.StdDescriptors.h.73.7d17e8be7a73b855fc0f8827303b7597
+                           .group:00000000 wm4.Endpoint.h.73.3734de3e84ab23fb43d81f41fba620ec
+                           .group:00000000 wm4.Device_XMC4000.h.86.6803bdd99d84e764a570256c87a24d0a
+                           .group:00000000 wm4.StdRequestType.h.50.461dce94a3ee1fa9ff31ec5f28bd9699
+                           .group:00000000 wm4.ConfigDescriptors.h.51.0d67ebf453774188abf5a503ba8f6735
+                           .group:00000000 wm4.CDCClass.h.61.0d41ba255f7ce6f076fd610d8396dd1f
+                           .group:00000000 wm4.CDCClassCommon.h.72.14ca578d8547e19a8a0c0d2d328483bd
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stdio.h.47.dc31ec4674d7bcb103c9f08809549f45
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.87.a1e20d2651f9bfb66e51bfbe849db00a
+                           .group:00000000 wm4.HIDClass.h.62.6bb32c59177b21a83b8e65c5a1b0a615
+                           .group:00000000 wm4.HIDReportData.h.47.f13f4956396e0bec70835fe634fcc24d
+                           .group:00000000 wm4.HIDParser.h.88.4b86fe94cb8d01713592cdd0391b606b
+                           .group:00000000 wm4.HIDClassCommon.h.71.a60cdf9d7cd69289f43dde215b509193
+                           .group:00000000 wm4.MassStorageClass.h.61.e9235f3bd090b77f36343f082ef93107
+                           .group:00000000 wm4.MassStorageClassCommon.h.51.6aefecf288eb3c3c6c9bde61e26dd765
+                           .group:00000000 wm4.Descriptors.h.44.84a4fd312957d0d42fb6aaa001850ba4
+                           .group:00000000 wm4.base64url.h.26.ed1fee22e760dd991443f292d5830091
+                           .group:00000000 wm4.crypto.h.8.3c7e0671468cbc28e07567ab2d290f6b
+                           .group:00000000 wm4.packetizer.h.44.8cfee869db25400923a603e5cc82ed56
+
+UNDEFINED SYMBOLS
+CDC_Device_USBTask
+CDC_Device_BytesReceived
+CDC_Device_ReceiveByte
+VirtualSerial_CDC_Interface
+memset
+isbase64
+base64_decode
+malloc
+__stack_chk_fail
+__stack_chk_guard
+calloc
+base64_decode_alloc
+free
+base64_encode_alloc
+CDC_Device_SendByte
+CDC_Device_SendData

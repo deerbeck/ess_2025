@@ -14,9 +14,11 @@ OC = $(CROSS_COMPILE)-objcopy
 OD = $(CROSS_COMPILE)-objdump
 SZ = $(CROSS_COMPILE)-size
 ifeq ($(GDB_QUIET),true)
-  DB = $(CROSS_COMPILE)-gdb -quiet
+  # DB = $(CROSS_COMPILE)-gdb-multiarch -quiet
+  DB = gdb-multiarch -quiet
 else
-  DB = $(CROSS_COMPILE)-gdb
+  # DB = $(CROSS_COMPILE)-gdb-multiarch
+  DB = gdb-multiarch
 endif
 
 # Paths to build directories for out-of-tree build and path to LUFA USB library

@@ -29,17 +29,45 @@
             ]
         },
         {
-            "name": "Python Debugger: Current File",
+            "name": "Python Debugger: Part A",
             "type": "debugpy",
             "args": [
                 "exploit",
                 "--device",
-                "/dev/ttyACM0"
+                "/dev/ttyACM0",
             ],
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/PartA",
+        },
+        {
+            "name": "Python Debugger: Part B",
+            "type": "debugpy",
+            "args": [
+                "exploit",
+                "--device",
+                "/dev/ttyACM0",
+            ],
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/PartB",
+        },
+        {
+            "name": "Python Debugger: Part C",
+            "type": "debugpy",
+            "args": [
+                "exploit",
+                "--device",
+                "/dev/ttyACM0",
+                "--nonce",
+                "kn7WQ-vvjV-vIe_W-W1wO0cTEOmsp9az"
+            ],
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/PartC",
         }
     ]
 }

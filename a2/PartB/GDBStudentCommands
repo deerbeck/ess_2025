@@ -1,3 +1,6 @@
 layout asm
+focus cmd
 b encrypt
 continue
+continue
+b *0x0800034a
