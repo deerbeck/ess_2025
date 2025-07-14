@@ -1,28 +1,29 @@
    1              		.cpu cortex-m4
-   2              		.eabi_attribute 27, 1
-   3              		.eabi_attribute 20, 1
-   4              		.eabi_attribute 21, 1
-   5              		.eabi_attribute 23, 3
-   6              		.eabi_attribute 24, 1
-   7              		.eabi_attribute 25, 1
-   8              		.eabi_attribute 26, 1
-   9              		.eabi_attribute 30, 6
-  10              		.eabi_attribute 34, 1
-  11              		.eabi_attribute 18, 4
-  12              		.file	"example_project.c"
-  13              		.text
-  14              	.Ltext0:
-  15              		.cfi_sections	.debug_frame
-  16              		.section	.text.XMC_GPIO_ToggleOutput,"ax",%progbits
-  17              		.align	1
-  18              		.arch armv7e-m
-  19              		.syntax unified
-  20              		.thumb
-  21              		.thumb_func
-  22              		.fpu fpv4-sp-d16
-  24              	XMC_GPIO_ToggleOutput:
-  25              	.LFB132:
-  26              		.file 1 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h"
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"example_project.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "example_project.c"
+  19              		.section	.text.XMC_GPIO_ToggleOutput,"ax",%progbits
+  20              		.align	1
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	XMC_GPIO_ToggleOutput:
+  26              	.LFB132:
+  27              		.file 2 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h"
    1:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** /**
    2:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h ****  * @file xmc_gpio.h
    3:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h ****  * @date 2015-06-20
@@ -332,184 +333,185 @@
  307:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** 
  308:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_ToggleOutput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
  309:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** {
-  27              		.loc 1 309 1
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 8
-  30              		@ frame_needed = 1, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
-  32 0000 80B4     		push	{r7}
-  33              	.LCFI0:
-  34              		.cfi_def_cfa_offset 4
-  35              		.cfi_offset 7, -4
-  36 0002 83B0     		sub	sp, sp, #12
-  37              	.LCFI1:
-  38              		.cfi_def_cfa_offset 16
-  39 0004 00AF     		add	r7, sp, #0
-  40              	.LCFI2:
-  41              		.cfi_def_cfa_register 7
-  42 0006 7860     		str	r0, [r7, #4]
-  43 0008 0B46     		mov	r3, r1
-  44 000a FB70     		strb	r3, [r7, #3]
+  28              		.loc 2 309 1
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 80B4     		push	{r7}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 7, -4
+  37 0002 83B0     		sub	sp, sp, #12
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 16
+  40 0004 00AF     		add	r7, sp, #0
+  41              	.LCFI2:
+  42              		.cfi_def_cfa_register 7
+  43 0006 7860     		str	r0, [r7, #4]
+  44 0008 0B46     		mov	r3, r1
+  45 000a FB70     		strb	r3, [r7, #3]
  310:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_ToggleOutput: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
  311:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** 
  312:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h ****   port->OMR = 0x10001U << pin;
-  45              		.loc 1 312 24
-  46 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
-  47 000e 4FF00112 		mov	r2, #65537
-  48 0012 9A40     		lsls	r2, r2, r3
-  49              		.loc 1 312 13
-  50 0014 7B68     		ldr	r3, [r7, #4]
-  51 0016 5A60     		str	r2, [r3, #4]
+  46              		.loc 2 312 24
+  47 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+  48 000e 4FF00112 		mov	r2, #65537
+  49 0012 9A40     		lsls	r2, r2, r3
+  50              		.loc 2 312 13
+  51 0014 7B68     		ldr	r3, [r7, #4]
+  52 0016 5A60     		str	r2, [r3, #4]
  313:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_gpio.h **** }
-  52              		.loc 1 313 1
-  53 0018 00BF     		nop
-  54 001a 0C37     		adds	r7, r7, #12
-  55              	.LCFI3:
-  56              		.cfi_def_cfa_offset 4
-  57 001c BD46     		mov	sp, r7
-  58              	.LCFI4:
-  59              		.cfi_def_cfa_register 13
-  60              		@ sp needed
-  61 001e 5DF8047B 		ldr	r7, [sp], #4
-  62              	.LCFI5:
-  63              		.cfi_restore 7
-  64              		.cfi_def_cfa_offset 0
-  65 0022 7047     		bx	lr
-  66              		.cfi_endproc
-  67              	.LFE132:
-  69              		.section	.rodata
-  70              		.align	2
-  71              	.LC0:
-  72 0000 80       		.byte	-128
-  73 0001 000000   		.space	3
-  74 0004 00000100 		.word	65536
-  75 0008 00       		.byte	0
-  76 0009 000000   		.space	3
-  77              		.section	.text.main,"ax",%progbits
-  78              		.align	1
-  79              		.global	main
-  80              		.syntax unified
-  81              		.thumb
-  82              		.thumb_func
-  83              		.fpu fpv4-sp-d16
+  53              		.loc 2 313 1
+  54 0018 00BF     		nop
+  55 001a 0C37     		adds	r7, r7, #12
+  56              	.LCFI3:
+  57              		.cfi_def_cfa_offset 4
+  58 001c BD46     		mov	sp, r7
+  59              	.LCFI4:
+  60              		.cfi_def_cfa_register 13
+  61              		@ sp needed
+  62 001e 5DF8047B 		ldr	r7, [sp], #4
+  63              	.LCFI5:
+  64              		.cfi_restore 7
+  65              		.cfi_def_cfa_offset 0
+  66 0022 7047     		bx	lr
+  67              		.cfi_endproc
+  68              	.LFE132:
+  70              		.section	.rodata
+  71              		.align	2
+  72              	.LC0:
+  73 0000 80       		.byte	-128
+  74 0001 000000   		.space	3
+  75 0004 00000100 		.word	65536
+  76 0008 00       		.byte	0
+  77 0009 000000   		.space	3
+  78              		.section	.text.main,"ax",%progbits
+  79              		.align	1
+  80              		.global	main
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
   85              	main:
   86              	.LFB138:
-  87              		.file 2 "example_project.c"
    1:example_project.c **** #include <xmc_gpio.h>
    2:example_project.c **** 
    3:example_project.c **** int main(void) {
-  88              		.loc 2 3 16
-  89              		.cfi_startproc
-  90              		@ args = 0, pretend = 0, frame = 16
-  91              		@ frame_needed = 1, uses_anonymous_args = 0
-  92 0000 80B5     		push	{r7, lr}
-  93              	.LCFI6:
-  94              		.cfi_def_cfa_offset 8
-  95              		.cfi_offset 7, -8
-  96              		.cfi_offset 14, -4
-  97 0002 84B0     		sub	sp, sp, #16
-  98              	.LCFI7:
-  99              		.cfi_def_cfa_offset 24
- 100 0004 00AF     		add	r7, sp, #0
- 101              	.LCFI8:
- 102              		.cfi_def_cfa_register 7
+  87              		.loc 1 3 16
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 16
+  90              		@ frame_needed = 1, uses_anonymous_args = 0
+  91 0000 80B5     		push	{r7, lr}
+  92              	.LCFI6:
+  93              		.cfi_def_cfa_offset 8
+  94              		.cfi_offset 7, -8
+  95              		.cfi_offset 14, -4
+  96 0002 84B0     		sub	sp, sp, #16
+  97              	.LCFI7:
+  98              		.cfi_def_cfa_offset 24
+  99 0004 00AF     		add	r7, sp, #0
+ 100              	.LCFI8:
+ 101              		.cfi_def_cfa_register 7
    4:example_project.c ****   const XMC_GPIO_CONFIG_t LED_config = \
- 103              		.loc 2 4 27
- 104 0006 0D4A     		ldr	r2, .L6
- 105 0008 3B46     		mov	r3, r7
- 106 000a 07CA     		ldm	r2, {r0, r1, r2}
- 107 000c 83E80700 		stm	r3, {r0, r1, r2}
+ 102              		.loc 1 4 27
+ 103 0006 0D4A     		ldr	r2, .L6
+ 104 0008 3B46     		mov	r3, r7
+ 105 000a 07CA     		ldm	r2, {r0, r1, r2}
+ 106 000c 83E80700 		stm	r3, {r0, r1, r2}
    5:example_project.c ****         {.mode=XMC_GPIO_MODE_OUTPUT_PUSH_PULL,\
    6:example_project.c ****          .output_level=XMC_GPIO_OUTPUT_LEVEL_LOW,\
    7:example_project.c ****          .output_strength=XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE};
    8:example_project.c **** 
    9:example_project.c ****   XMC_GPIO_Init(XMC_GPIO_PORT1, 0, &LED_config);
- 108              		.loc 2 9 3
- 109 0010 3B46     		mov	r3, r7
- 110 0012 1A46     		mov	r2, r3
- 111 0014 0021     		movs	r1, #0
- 112 0016 0A48     		ldr	r0, .L6+4
- 113 0018 FFF7FEFF 		bl	XMC_GPIO_Init
- 114              	.L5:
- 115              	.LBB2:
+ 107              		.loc 1 9 3
+ 108 0010 3B46     		mov	r3, r7
+ 109 0012 1A46     		mov	r2, r3
+ 110 0014 0021     		movs	r1, #0
+ 111 0016 0A48     		ldr	r0, .L6+4
+ 112 0018 FFF7FEFF 		bl	XMC_GPIO_Init
+ 113              	.L5:
+ 114              	.LBB2:
   10:example_project.c **** 
   11:example_project.c ****   while(1) {
   12:example_project.c ****     for(int32_t waiter=(1<<20); waiter >= 0; waiter--);
- 116              		.loc 2 12 17
- 117 001c 4FF48013 		mov	r3, #1048576
- 118 0020 FB60     		str	r3, [r7, #12]
- 119              		.loc 2 12 5
- 120 0022 02E0     		b	.L3
- 121              	.L4:
- 122              		.loc 2 12 52 discriminator 3
- 123 0024 FB68     		ldr	r3, [r7, #12]
- 124 0026 013B     		subs	r3, r3, #1
- 125 0028 FB60     		str	r3, [r7, #12]
- 126              	.L3:
- 127              		.loc 2 12 5 discriminator 1
- 128 002a FB68     		ldr	r3, [r7, #12]
- 129 002c 002B     		cmp	r3, #0
- 130 002e F9DA     		bge	.L4
- 131              	.LBE2:
+ 115              		.loc 1 12 17
+ 116 001c 4FF48013 		mov	r3, #1048576
+ 117 0020 FB60     		str	r3, [r7, #12]
+ 118              		.loc 1 12 5
+ 119 0022 02E0     		b	.L3
+ 120              	.L4:
+ 121              		.loc 1 12 52 discriminator 3
+ 122 0024 FB68     		ldr	r3, [r7, #12]
+ 123 0026 013B     		subs	r3, r3, #1
+ 124 0028 FB60     		str	r3, [r7, #12]
+ 125              	.L3:
+ 126              		.loc 1 12 40 discriminator 1
+ 127 002a FB68     		ldr	r3, [r7, #12]
+ 128 002c 002B     		cmp	r3, #0
+ 129 002e F9DA     		bge	.L4
+ 130              	.LBE2:
   13:example_project.c ****     XMC_GPIO_ToggleOutput(XMC_GPIO_PORT1, 0);
- 132              		.loc 2 13 5
- 133 0030 0021     		movs	r1, #0
- 134 0032 0348     		ldr	r0, .L6+4
- 135 0034 FFF7FEFF 		bl	XMC_GPIO_ToggleOutput
+ 131              		.loc 1 13 5
+ 132 0030 0021     		movs	r1, #0
+ 133 0032 0348     		ldr	r0, .L6+4
+ 134 0034 FFF7FEFF 		bl	XMC_GPIO_ToggleOutput
   12:example_project.c ****     XMC_GPIO_ToggleOutput(XMC_GPIO_PORT1, 0);
- 136              		.loc 2 12 5
- 137 0038 F0E7     		b	.L5
- 138              	.L7:
- 139 003a 00BF     		.align	2
- 140              	.L6:
- 141 003c 00000000 		.word	.LC0
- 142 0040 00810248 		.word	1208123648
- 143              		.cfi_endproc
- 144              	.LFE138:
- 146              		.text
- 147              	.Letext0:
- 148              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 149              		.file 4 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc4_gpio.h"
+ 135              		.loc 1 12 5
+ 136 0038 F0E7     		b	.L5
+ 137              	.L7:
+ 138 003a 00BF     		.align	2
+ 139              	.L6:
+ 140 003c 00000000 		.word	.LC0
+ 141 0040 00810248 		.word	1208123648
+ 142              		.cfi_endproc
+ 143              	.LFE138:
+ 145              		.text
+ 146              	.Letext0:
+ 147              		.file 3 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/machine/_defa
+ 148              		.file 4 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/_stdint.h
+ 149              		.file 5 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc4_gpio.h"
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 example_project.c
-     /tmp/ccmDqYQZ.s:17     .text.XMC_GPIO_ToggleOutput:0000000000000000 $t
-     /tmp/ccmDqYQZ.s:24     .text.XMC_GPIO_ToggleOutput:0000000000000000 XMC_GPIO_ToggleOutput
-     /tmp/ccmDqYQZ.s:70     .rodata:0000000000000000 $d
-     /tmp/ccmDqYQZ.s:78     .text.main:0000000000000000 $t
-     /tmp/ccmDqYQZ.s:85     .text.main:0000000000000000 main
-     /tmp/ccmDqYQZ.s:141    .text.main:000000000000003c $d
-                           .group:0000000000000000 wm4.0.a2f4586a184eb65e34d257f3b2a44098
-                           .group:0000000000000000 wm4.stddef.h.39.27677723d43e5b5a7afdf8d798429f1d
-                           .group:0000000000000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
-                           .group:0000000000000000 wm4.stdbool.h.29.07dce69c3b78884144b7f7bd19483461
-                           .group:0000000000000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
-                           .group:0000000000000000 wm4.newlib.h.21.1ae2897bc09bbe4bc80ffb801fb02432
-                           .group:0000000000000000 wm4.ieeefp.h.77.f33a4dce62116f6f5175ff8bae57a54c
-                           .group:0000000000000000 wm4.features.h.22.026edb2397769f4ae13f35900dbdb560
-                           .group:0000000000000000 wm4.config.h.224.c701144a7b0518c6ee9b9b5465b79f81
-                           .group:0000000000000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
-                           .group:0000000000000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
-                           .group:0000000000000000 wm4.stddef.h.155.3588ebfdd1e8c7ede80509bb9c3b8009
-                           .group:0000000000000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
-                           .group:0000000000000000 wm4._types.h.127.34941de1b2539d59d5cac00e0dd27a45
-                           .group:0000000000000000 wm4.reent.h.17.e292bf8b0bec6c96e131a54347145a30
-                           .group:0000000000000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
-                           .group:0000000000000000 wm4.reent.h.77.dcd6129ff07fe81bd5636db29abe53b2
-                           .group:0000000000000000 wm4.cdefs.h.49.3d0fe8ea14e93bda8c589d4f684b21b8
-                           .group:0000000000000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
-                           .group:0000000000000000 wm4.stddef.h.155.ba788add86a0e365f264484f110c3c29
-                           .group:0000000000000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
-                           .group:0000000000000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
-                           .group:0000000000000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
-                           .group:0000000000000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
-                           .group:0000000000000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
-                           .group:0000000000000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
-                           .group:0000000000000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
-                           .group:0000000000000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
-                           .group:0000000000000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
-                           .group:0000000000000000 wm4.xmc_gpio.h.97.fa6a2e1be6030a75d960293cc3bbbd6b
-                           .group:0000000000000000 wm4.xmc4_gpio_map.h.74.66e9110cf801b78826ef5354da51c32f
-                           .group:0000000000000000 wm4.xmc4_gpio.h.79.ce6c49508b5a7769c66e7e3c21dcdfe4
+                            *ABS*:00000000 example_project.c
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:20     .text.XMC_GPIO_ToggleOutput:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:25     .text.XMC_GPIO_ToggleOutput:00000000 XMC_GPIO_ToggleOutput
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:71     .rodata:00000000 $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:79     .text.main:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:85     .text.main:00000000 main
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccRUGyR4.s:140    .text.main:0000003c $d
+                           .group:00000000 wm4.0.241ce140b5afdc8837fba2b44cc07f6b
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.features.h.33.00009458517f941082eec7afb4810922
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.stdbool.h.29.c08aa3eec75cf5b9b5003883f43253f0
+                           .group:00000000 wm4.newlib.h.7.591ac1bd65c1f5b34864757667a05252
+                           .group:00000000 wm4.ieeefp.h.77.61a77db5804869b1dadd307a77cf78c9
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.cdefs.h.49.bafb023044e47a1dcdd854e4d6521f7d
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.78.6b87466b04591b1f1cb88c14fdf2ba9e
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
+                           .group:00000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
+                           .group:00000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
+                           .group:00000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
+                           .group:00000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
+                           .group:00000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
+                           .group:00000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
+                           .group:00000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
+                           .group:00000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
+                           .group:00000000 wm4.xmc_gpio.h.97.fa6a2e1be6030a75d960293cc3bbbd6b
+                           .group:00000000 wm4.xmc4_gpio_map.h.74.66e9110cf801b78826ef5354da51c32f
+                           .group:00000000 wm4.xmc4_gpio.h.79.ce6c49508b5a7769c66e7e3c21dcdfe4
 
 UNDEFINED SYMBOLS
 XMC_GPIO_Init

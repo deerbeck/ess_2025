@@ -135,7 +135,7 @@ $(LIB_BUILDDIR)/startup_XMC$(XMC_SERIES).o: $(XMC_LIBDIR)/CMSIS/Infineon/XMC$(XM
 
 # When copying the linker description file, see if there is one created by the student and only if not copy the one from the library
 $(BUILDDIR)/$(LD_NAME).ld: $(XMC_LIBDIR)/CMSIS/Infineon/XMC$(XMC_SERIES)_series/Source/GCC/XMC$(XMC_SERIES)x$(XMC_SIZE).ld | $(BUILDDIR)
-	if [ -f "$(LD_NAME).ld" ] ; then cp -pu "$(LD_NAME).ld" $@ ; else cp -n --preserve=timestamps $< $@ ; fi
+	if [ -f "$(LD_NAME).ld" ] ; then cp -pu "$(LD_NAME).ld" $@ ; else cp -n -p $< $@ ; fi
 
 $(BUILDDIR):
 	mkdir -p $@

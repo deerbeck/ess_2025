@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/XMCLib/XMC_Peripheral_Library_v2.1.16/**",
+                "/opt/XMCLib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/**"
+            ],
+            "defines": [],
+            "compilerPath": "/opt/homebrew/bin/arm-none-eabi-gcc",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "macos-gcc-arm64"
+        }
+    ],
+    "version": 4
+}
