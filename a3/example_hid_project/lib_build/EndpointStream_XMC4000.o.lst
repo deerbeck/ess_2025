@@ -1,0 +1,1748 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"EndpointStream_XMC4000.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/En
+  19              		.global	zlp_flag
+  20              		.bss
+  23              	zlp_flag:
+  24 0000 00       		.space	1
+  25              		.section	.text.Endpoint_Write_Stream_LE,"ax",%progbits
+  26              		.align	1
+  27              		.global	Endpoint_Write_Stream_LE
+  28              		.syntax unified
+  29              		.thumb
+  30              		.thumb_func
+  32              	Endpoint_Write_Stream_LE:
+  33              	.LFB188:
+   1:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** /*******************************************************************************
+   2:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  Copyright (c) 2013, Infineon Technologies AG                                 **
+   3:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  All rights reserved.                                                         **
+   4:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****                                                                               **
+   5:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  Redistribution and use in source and binary forms, with or without           **
+   6:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  modification,are permitted provided that the following conditions are met:   **
+   7:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****                                                                               **
+   8:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  *Redistributions of source code must retain the above copyright notice,      **
+   9:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  this list of conditions and the following disclaimer.                        **
+  10:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  *Redistributions in binary form must reproduce the above copyright notice,   **
+  11:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  this list of conditions and the following disclaimer in the documentation    **
+  12:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  and/or other materials provided with the distribution.                       **
+  13:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  *Neither the name of the copyright holders nor the names of its contributors **
+  14:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  may be used to endorse or promote products derived from this software without**
+  15:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  specific prior written permission.                                           **
+  16:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****                                                                               **
+  17:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  **
+  18:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    **
+  19:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   **
+  20:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   **
+  21:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         **
+  22:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         **
+  23:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    **
+  24:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      **
+  25:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       **
+  26:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   **
+  27:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  POSSIBILITY OF SUCH DAMAGE.                                                  **
+  28:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****                                                                               **
+  29:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  To improve the quality of the software, users are encouraged to share        **
+  30:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  modifications, enhancements or bug fixes with Infineon Technologies AG       **
+  31:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  dave@infineon.com).                                                          **
+  32:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****                                                                               **
+  33:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** ********************************************************************************/
+  34:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** /**
+  35:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  * @file
+  36:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  *
+  37:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  * @App Version internal release for evaluation, no public release!
+  38:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  *
+  39:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  * @brief Source file for LUFA Endpoint Streaming functions
+  40:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c ****  */
+  41:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  42:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** #include "../../Common/Common.h"
+  43:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  44:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  45:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** #include "../USBMode.h"
+  46:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  47:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** /*Flag to indicate the zlp to be sent or not*/
+  48:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** volatile uint8_t zlp_flag = 0;
+  49:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  50:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** #if defined(USB_CAN_BE_DEVICE)
+  51:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  52:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** #include "EndpointStream_XMC4000.h"
+  53:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  54:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t Endpoint_Write_Stream_LE (const void *const Buffer, uint16_t Length, uint16_t *const BytesP
+  34              		.loc 1 54 111
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 32
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43 0002 88B0     		sub	sp, sp, #32
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 40
+  46 0004 00AF     		add	r7, sp, #0
+  47              	.LCFI2:
+  48              		.cfi_def_cfa_register 7
+  49 0006 F860     		str	r0, [r7, #12]
+  50 0008 0B46     		mov	r3, r1
+  51 000a 7A60     		str	r2, [r7, #4]
+  52 000c 7B81     		strh	r3, [r7, #10]	@ movhi
+  55:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t* ep = &device.Endpoints[device.CurrentEndpoint];
+  53              		.loc 1 55 48
+  54 000e 3F4B     		ldr	r3, .L12
+  55 0010 93F83C31 		ldrb	r3, [r3, #316]	@ zero_extendqisi2
+  56 0014 1A46     		mov	r2, r3
+  57              		.loc 1 55 19
+  58 0016 2C23     		movs	r3, #44
+  59 0018 02FB03F3 		mul	r3, r2, r3
+  60 001c 3B4A     		ldr	r2, .L12
+  61 001e 1344     		add	r3, r3, r2
+  62 0020 0433     		adds	r3, r3, #4
+  63 0022 BB61     		str	r3, [r7, #24]
+  56:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes = 0;
+  64              		.loc 1 56 11
+  65 0024 0023     		movs	r3, #0
+  66 0026 FB82     		strh	r3, [r7, #22]	@ movhi
+  57:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t BytesTransfered = 0;
+  67              		.loc 1 57 11
+  68 0028 0023     		movs	r3, #0
+  69 002a FB83     		strh	r3, [r7, #30]	@ movhi
+  58:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint8_t ErrorCode;
+  59:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t prev_length = 0;
+  70              		.loc 1 59 11
+  71 002c 0023     		movs	r3, #0
+  72 002e BB83     		strh	r3, [r7, #28]	@ movhi
+  60:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	if (BytesProcessed!=NULL) {
+  73              		.loc 1 60 5
+  74 0030 7B68     		ldr	r3, [r7, #4]
+  75 0032 002B     		cmp	r3, #0
+  76 0034 52D0     		beq	.L3
+  61:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		Length -= *BytesProcessed;
+  77              		.loc 1 61 13
+  78 0036 7B68     		ldr	r3, [r7, #4]
+  79 0038 1B88     		ldrh	r3, [r3]
+  80              		.loc 1 61 10
+  81 003a 7A89     		ldrh	r2, [r7, #10]	@ movhi
+  82 003c D31A     		subs	r3, r2, r3
+  83 003e 7B81     		strh	r3, [r7, #10]	@ movhi
+  62:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		BytesTransfered = *BytesProcessed;
+  84              		.loc 1 62 19
+  85 0040 7B68     		ldr	r3, [r7, #4]
+  86 0042 1B88     		ldrh	r3, [r3]	@ movhi
+  87 0044 FB83     		strh	r3, [r7, #30]	@ movhi
+  63:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+  64:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  65:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+  88              		.loc 1 65 8
+  89 0046 49E0     		b	.L3
+  90              	.L9:
+  66:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+  91              		.loc 1 66 9
+  92 0048 BB69     		ldr	r3, [r7, #24]
+  93 004a 5B68     		ldr	r3, [r3, #4]
+  94 004c C3F30013 		ubfx	r3, r3, #4, #1
+  95 0050 DBB2     		uxtb	r3, r3
+  96              		.loc 1 66 6
+  97 0052 002B     		cmp	r3, #0
+  98 0054 41D1     		bne	.L11
+  67:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			continue;
+  68:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+  99              		.loc 1 68 7
+ 100 0056 FFF7FEFF 		bl	Endpoint_IsReadWriteAllowed
+ 101 005a 0346     		mov	r3, r0
+ 102              		.loc 1 68 6 discriminator 1
+ 103 005c 002B     		cmp	r3, #0
+ 104 005e 29D0     		beq	.L6
+  69:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = ep->InBufferLength - ep->InBytesAvailable  > Length ? Length : ep->InBufferLength - ep->
+ 105              		.loc 1 69 14
+ 106 0060 BB69     		ldr	r3, [r7, #24]
+ 107 0062 1A6A     		ldr	r2, [r3, #32]
+ 108              		.loc 1 69 35
+ 109 0064 BB69     		ldr	r3, [r7, #24]
+ 110 0066 9B69     		ldr	r3, [r3, #24]
+ 111              		.loc 1 69 31
+ 112 0068 D21A     		subs	r2, r2, r3
+ 113              		.loc 1 69 55
+ 114 006a 7B89     		ldrh	r3, [r7, #10]
+ 115              		.loc 1 69 73
+ 116 006c 9342     		cmp	r3, r2
+ 117 006e 28BF     		it	cs
+ 118 0070 1346     		movcs	r3, r2
+ 119              		.loc 1 69 10
+ 120 0072 FB82     		strh	r3, [r7, #22]	@ movhi
+  70:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			MEMCPY((void *)((uint32_t)ep->InBuffer + (uint32_t)ep->InBytesAvailable), (void *)((uint32_t)Buf
+ 121              		.loc 1 70 4
+ 122 0074 BB69     		ldr	r3, [r7, #24]
+ 123 0076 DB69     		ldr	r3, [r3, #28]
+ 124 0078 1A46     		mov	r2, r3
+ 125 007a BB69     		ldr	r3, [r7, #24]
+ 126 007c 9B69     		ldr	r3, [r3, #24]
+ 127 007e 1344     		add	r3, r3, r2
+ 128 0080 1846     		mov	r0, r3
+ 129 0082 FA8B     		ldrh	r2, [r7, #30]
+ 130 0084 FB68     		ldr	r3, [r7, #12]
+ 131 0086 1344     		add	r3, r3, r2
+ 132 0088 1946     		mov	r1, r3
+ 133 008a FB8A     		ldrh	r3, [r7, #22]
+ 134 008c 1A46     		mov	r2, r3
+ 135 008e FFF7FEFF 		bl	thumb2_memcpy
+  71:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->InBytesAvailable += Bytes;
+ 136              		.loc 1 71 6
+ 137 0092 BB69     		ldr	r3, [r7, #24]
+ 138 0094 9A69     		ldr	r2, [r3, #24]
+ 139              		.loc 1 71 25
+ 140 0096 FB8A     		ldrh	r3, [r7, #22]
+ 141 0098 1A44     		add	r2, r2, r3
+ 142 009a BB69     		ldr	r3, [r7, #24]
+ 143 009c 9A61     		str	r2, [r3, #24]
+  72:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			BytesTransfered += Bytes;
+ 144              		.loc 1 72 20
+ 145 009e FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 146 00a0 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 147 00a2 1344     		add	r3, r3, r2
+ 148 00a4 FB83     		strh	r3, [r7, #30]	@ movhi
+  73:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			prev_length = Length;
+ 149              		.loc 1 73 16
+ 150 00a6 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 151 00a8 BB83     		strh	r3, [r7, #28]	@ movhi
+  74:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 152              		.loc 1 74 11
+ 153 00aa 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 154 00ac FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 155 00ae D31A     		subs	r3, r2, r3
+ 156 00b0 7B81     		strh	r3, [r7, #10]	@ movhi
+ 157 00b2 13E0     		b	.L3
+ 158              	.L6:
+  75:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+  76:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		else {
+  77:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearIN();
+ 159              		.loc 1 77 4
+ 160 00b4 FFF7FEFF 		bl	Endpoint_ClearIN
+  78:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (BytesProcessed!=NULL) {
+ 161              		.loc 1 78 7
+ 162 00b8 7B68     		ldr	r3, [r7, #4]
+ 163 00ba 002B     		cmp	r3, #0
+ 164 00bc 04D0     		beq	.L7
+  79:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				*BytesProcessed = BytesTransfered;
+ 165              		.loc 1 79 21
+ 166 00be 7B68     		ldr	r3, [r7, #4]
+ 167 00c0 FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 168 00c2 1A80     		strh	r2, [r3]	@ movhi
+  80:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+ 169              		.loc 1 80 12
+ 170 00c4 0523     		movs	r3, #5
+ 171 00c6 1CE0     		b	.L8
+ 172              	.L7:
+  81:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+  82:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  83:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if ((ErrorCode = Endpoint_WaitUntilReady()) != 0) {
+ 173              		.loc 1 83 21
+ 174 00c8 FFF7FEFF 		bl	Endpoint_WaitUntilReady
+ 175 00cc 0346     		mov	r3, r0
+ 176 00ce 7B75     		strb	r3, [r7, #21]
+ 177              		.loc 1 83 7 discriminator 1
+ 178 00d0 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 179 00d2 002B     		cmp	r3, #0
+ 180 00d4 02D0     		beq	.L3
+  84:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ErrorCode;
+ 181              		.loc 1 84 12
+ 182 00d6 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 183 00d8 13E0     		b	.L8
+ 184              	.L11:
+  67:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 185              		.loc 1 67 4
+ 186 00da 00BF     		nop
+ 187              	.L3:
+  65:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+ 188              		.loc 1 65 9
+ 189 00dc 7B89     		ldrh	r3, [r7, #10]
+ 190 00de 002B     		cmp	r3, #0
+ 191 00e0 B2D1     		bne	.L9
+  85:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+  86:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  87:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  88:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+  89:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+  90:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	
+  91:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	if((Length == 0) && (prev_length == ep->MaxPacketSize))
+ 192              		.loc 1 91 4
+ 193 00e2 7B89     		ldrh	r3, [r7, #10]
+ 194 00e4 002B     		cmp	r3, #0
+ 195 00e6 0BD1     		bne	.L10
+ 196              		.loc 1 91 40 discriminator 1
+ 197 00e8 BB69     		ldr	r3, [r7, #24]
+ 198 00ea 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 199 00ec C3F38613 		ubfx	r3, r3, #6, #7
+ 200 00f0 DBB2     		uxtb	r3, r3
+ 201              		.loc 1 91 35 discriminator 1
+ 202 00f2 1A46     		mov	r2, r3
+ 203              		.loc 1 91 19 discriminator 1
+ 204 00f4 BB8B     		ldrh	r3, [r7, #28]
+ 205 00f6 9342     		cmp	r3, r2
+ 206 00f8 02D1     		bne	.L10
+  92:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	{
+  93:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	   zlp_flag = true;
+ 207              		.loc 1 93 14
+ 208 00fa 054B     		ldr	r3, .L12+4
+ 209 00fc 0122     		movs	r2, #1
+ 210 00fe 1A70     		strb	r2, [r3]
+ 211              	.L10:
+  94:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+  95:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 212              		.loc 1 95 9
+ 213 0100 0023     		movs	r3, #0
+ 214              	.L8:
+  96:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 215              		.loc 1 96 1
+ 216 0102 1846     		mov	r0, r3
+ 217 0104 2037     		adds	r7, r7, #32
+ 218              	.LCFI3:
+ 219              		.cfi_def_cfa_offset 8
+ 220 0106 BD46     		mov	sp, r7
+ 221              	.LCFI4:
+ 222              		.cfi_def_cfa_register 13
+ 223              		@ sp needed
+ 224 0108 80BD     		pop	{r7, pc}
+ 225              	.L13:
+ 226 010a 00BF     		.align	2
+ 227              	.L12:
+ 228 010c 00000000 		.word	device
+ 229 0110 00000000 		.word	zlp_flag
+ 230              		.cfi_endproc
+ 231              	.LFE188:
+ 233              		.section	.text.SwapCopy,"ax",%progbits
+ 234              		.align	1
+ 235              		.global	SwapCopy
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 240              	SwapCopy:
+ 241              	.LFB189:
+  97:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+  98:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** void SwapCopy(void *const Dest, const void *const Src,uint32_t Length) {
+ 242              		.loc 1 98 72
+ 243              		.cfi_startproc
+ 244              		@ args = 0, pretend = 0, frame = 24
+ 245              		@ frame_needed = 1, uses_anonymous_args = 0
+ 246              		@ link register save eliminated.
+ 247 0000 80B4     		push	{r7}
+ 248              	.LCFI5:
+ 249              		.cfi_def_cfa_offset 4
+ 250              		.cfi_offset 7, -4
+ 251 0002 87B0     		sub	sp, sp, #28
+ 252              	.LCFI6:
+ 253              		.cfi_def_cfa_offset 32
+ 254 0004 00AF     		add	r7, sp, #0
+ 255              	.LCFI7:
+ 256              		.cfi_def_cfa_register 7
+ 257 0006 F860     		str	r0, [r7, #12]
+ 258 0008 B960     		str	r1, [r7, #8]
+ 259 000a 7A60     		str	r2, [r7, #4]
+  99:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint32_t i = 0;
+ 260              		.loc 1 99 11
+ 261 000c 0023     		movs	r3, #0
+ 262 000e 7B61     		str	r3, [r7, #20]
+ 100:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while(i<Length) {
+ 263              		.loc 1 100 7
+ 264 0010 0EE0     		b	.L15
+ 265              	.L16:
+ 101:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		*(uint8_t*)((uint32_t)Dest + (Length - 1 - i)) = *(uint8_t*)((uint32_t)Src + i);
+ 266              		.loc 1 101 64
+ 267 0012 BA68     		ldr	r2, [r7, #8]
+ 268              		.loc 1 101 78
+ 269 0014 7B69     		ldr	r3, [r7, #20]
+ 270 0016 1344     		add	r3, r3, r2
+ 271              		.loc 1 101 53
+ 272 0018 1946     		mov	r1, r3
+ 273              		.loc 1 101 44
+ 274 001a 7A68     		ldr	r2, [r7, #4]
+ 275 001c 7B69     		ldr	r3, [r7, #20]
+ 276 001e D21A     		subs	r2, r2, r3
+ 277              		.loc 1 101 30
+ 278 0020 FB68     		ldr	r3, [r7, #12]
+ 279 0022 1344     		add	r3, r3, r2
+ 280 0024 013B     		subs	r3, r3, #1
+ 281              		.loc 1 101 52
+ 282 0026 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 283              		.loc 1 101 50
+ 284 0028 1A70     		strb	r2, [r3]
+ 102:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		i++;
+ 285              		.loc 1 102 4
+ 286 002a 7B69     		ldr	r3, [r7, #20]
+ 287 002c 0133     		adds	r3, r3, #1
+ 288 002e 7B61     		str	r3, [r7, #20]
+ 289              	.L15:
+ 100:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while(i<Length) {
+ 290              		.loc 1 100 9
+ 291 0030 7A69     		ldr	r2, [r7, #20]
+ 292 0032 7B68     		ldr	r3, [r7, #4]
+ 293 0034 9A42     		cmp	r2, r3
+ 294 0036 ECD3     		bcc	.L16
+ 103:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 104:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 295              		.loc 1 104 1
+ 296 0038 00BF     		nop
+ 297 003a 00BF     		nop
+ 298 003c 1C37     		adds	r7, r7, #28
+ 299              	.LCFI8:
+ 300              		.cfi_def_cfa_offset 4
+ 301 003e BD46     		mov	sp, r7
+ 302              	.LCFI9:
+ 303              		.cfi_def_cfa_register 13
+ 304              		@ sp needed
+ 305 0040 5DF8047B 		ldr	r7, [sp], #4
+ 306              	.LCFI10:
+ 307              		.cfi_restore 7
+ 308              		.cfi_def_cfa_offset 0
+ 309 0044 7047     		bx	lr
+ 310              		.cfi_endproc
+ 311              	.LFE189:
+ 313              		.section	.text.Endpoint_Write_Stream_BE,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	Endpoint_Write_Stream_BE
+ 316              		.syntax unified
+ 317              		.thumb
+ 318              		.thumb_func
+ 320              	Endpoint_Write_Stream_BE:
+ 321              	.LFB190:
+ 105:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Write_Stream_BE (const void *const Buffer, uint16_t Length, uint16_t *const BytesP
+ 322              		.loc 1 105 110
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 32
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326 0000 80B5     		push	{r7, lr}
+ 327              	.LCFI11:
+ 328              		.cfi_def_cfa_offset 8
+ 329              		.cfi_offset 7, -8
+ 330              		.cfi_offset 14, -4
+ 331 0002 88B0     		sub	sp, sp, #32
+ 332              	.LCFI12:
+ 333              		.cfi_def_cfa_offset 40
+ 334 0004 00AF     		add	r7, sp, #0
+ 335              	.LCFI13:
+ 336              		.cfi_def_cfa_register 7
+ 337 0006 F860     		str	r0, [r7, #12]
+ 338 0008 0B46     		mov	r3, r1
+ 339 000a 7A60     		str	r2, [r7, #4]
+ 340 000c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 106:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t* ep = &device.Endpoints[device.CurrentEndpoint];
+ 341              		.loc 1 106 48
+ 342 000e 354B     		ldr	r3, .L27
+ 343 0010 93F83C31 		ldrb	r3, [r3, #316]	@ zero_extendqisi2
+ 344 0014 1A46     		mov	r2, r3
+ 345              		.loc 1 106 19
+ 346 0016 2C23     		movs	r3, #44
+ 347 0018 02FB03F3 		mul	r3, r2, r3
+ 348 001c 314A     		ldr	r2, .L27
+ 349 001e 1344     		add	r3, r3, r2
+ 350 0020 0433     		adds	r3, r3, #4
+ 351 0022 BB61     		str	r3, [r7, #24]
+ 107:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes = 0;
+ 352              		.loc 1 107 11
+ 353 0024 0023     		movs	r3, #0
+ 354 0026 FB82     		strh	r3, [r7, #22]	@ movhi
+ 108:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t BytesTransfered = 0;
+ 355              		.loc 1 108 11
+ 356 0028 0023     		movs	r3, #0
+ 357 002a FB83     		strh	r3, [r7, #30]	@ movhi
+ 109:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint8_t ErrorCode;
+ 110:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 111:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	if (BytesProcessed!=NULL) {
+ 358              		.loc 1 111 5
+ 359 002c 7B68     		ldr	r3, [r7, #4]
+ 360 002e 002B     		cmp	r3, #0
+ 361 0030 50D0     		beq	.L19
+ 112:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		Length -= *BytesProcessed;
+ 362              		.loc 1 112 13
+ 363 0032 7B68     		ldr	r3, [r7, #4]
+ 364 0034 1B88     		ldrh	r3, [r3]
+ 365              		.loc 1 112 10
+ 366 0036 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 367 0038 D31A     		subs	r3, r2, r3
+ 368 003a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 113:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		BytesTransfered = *BytesProcessed;
+ 369              		.loc 1 113 19
+ 370 003c 7B68     		ldr	r3, [r7, #4]
+ 371 003e 1B88     		ldrh	r3, [r3]	@ movhi
+ 372 0040 FB83     		strh	r3, [r7, #30]	@ movhi
+ 114:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 115:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 116:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+ 373              		.loc 1 116 8
+ 374 0042 47E0     		b	.L19
+ 375              	.L25:
+ 117:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+ 376              		.loc 1 117 9
+ 377 0044 BB69     		ldr	r3, [r7, #24]
+ 378 0046 5B68     		ldr	r3, [r3, #4]
+ 379 0048 C3F30013 		ubfx	r3, r3, #4, #1
+ 380 004c DBB2     		uxtb	r3, r3
+ 381              		.loc 1 117 6
+ 382 004e 002B     		cmp	r3, #0
+ 383 0050 3FD1     		bne	.L26
+ 118:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			continue;
+ 119:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 384              		.loc 1 119 7
+ 385 0052 FFF7FEFF 		bl	Endpoint_IsReadWriteAllowed
+ 386 0056 0346     		mov	r3, r0
+ 387              		.loc 1 119 6 discriminator 1
+ 388 0058 002B     		cmp	r3, #0
+ 389 005a 27D0     		beq	.L22
+ 120:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = ep->InBufferLength - ep->InBytesAvailable  > Length ? Length : ep->InBufferLength - ep->
+ 390              		.loc 1 120 14
+ 391 005c BB69     		ldr	r3, [r7, #24]
+ 392 005e 1A6A     		ldr	r2, [r3, #32]
+ 393              		.loc 1 120 35
+ 394 0060 BB69     		ldr	r3, [r7, #24]
+ 395 0062 9B69     		ldr	r3, [r3, #24]
+ 396              		.loc 1 120 31
+ 397 0064 D21A     		subs	r2, r2, r3
+ 398              		.loc 1 120 55
+ 399 0066 7B89     		ldrh	r3, [r7, #10]
+ 400              		.loc 1 120 73
+ 401 0068 9342     		cmp	r3, r2
+ 402 006a 28BF     		it	cs
+ 403 006c 1346     		movcs	r3, r2
+ 404              		.loc 1 120 10
+ 405 006e FB82     		strh	r3, [r7, #22]	@ movhi
+ 121:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			SwapCopy((void *)((uint32_t)ep->InBuffer + (uint32_t)ep->InBytesAvailable),(void *)((uint32_t)Bu
+ 406              		.loc 1 121 34
+ 407 0070 BB69     		ldr	r3, [r7, #24]
+ 408 0072 DB69     		ldr	r3, [r3, #28]
+ 409              		.loc 1 121 22
+ 410 0074 1A46     		mov	r2, r3
+ 411              		.loc 1 121 59
+ 412 0076 BB69     		ldr	r3, [r7, #24]
+ 413 0078 9B69     		ldr	r3, [r3, #24]
+ 414              		.loc 1 121 45
+ 415 007a 1344     		add	r3, r3, r2
+ 416              		.loc 1 121 4
+ 417 007c 1846     		mov	r0, r3
+ 418              		.loc 1 121 107
+ 419 007e FA8B     		ldrh	r2, [r7, #30]
+ 420              		.loc 1 121 88
+ 421 0080 FB68     		ldr	r3, [r7, #12]
+ 422              		.loc 1 121 105
+ 423 0082 1344     		add	r3, r3, r2
+ 424              		.loc 1 121 4
+ 425 0084 1946     		mov	r1, r3
+ 426 0086 FB8A     		ldrh	r3, [r7, #22]
+ 427 0088 1A46     		mov	r2, r3
+ 428 008a FFF7FEFF 		bl	SwapCopy
+ 122:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->InBytesAvailable += Bytes;
+ 429              		.loc 1 122 6
+ 430 008e BB69     		ldr	r3, [r7, #24]
+ 431 0090 9A69     		ldr	r2, [r3, #24]
+ 432              		.loc 1 122 25
+ 433 0092 FB8A     		ldrh	r3, [r7, #22]
+ 434 0094 1A44     		add	r2, r2, r3
+ 435 0096 BB69     		ldr	r3, [r7, #24]
+ 436 0098 9A61     		str	r2, [r3, #24]
+ 123:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			BytesTransfered += Bytes;
+ 437              		.loc 1 123 20
+ 438 009a FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 439 009c FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 440 009e 1344     		add	r3, r3, r2
+ 441 00a0 FB83     		strh	r3, [r7, #30]	@ movhi
+ 124:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 442              		.loc 1 124 11
+ 443 00a2 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 444 00a4 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 445 00a6 D31A     		subs	r3, r2, r3
+ 446 00a8 7B81     		strh	r3, [r7, #10]	@ movhi
+ 447 00aa 13E0     		b	.L19
+ 448              	.L22:
+ 125:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 126:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		else {
+ 127:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearIN();
+ 449              		.loc 1 127 4
+ 450 00ac FFF7FEFF 		bl	Endpoint_ClearIN
+ 128:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (BytesProcessed!=NULL) {
+ 451              		.loc 1 128 7
+ 452 00b0 7B68     		ldr	r3, [r7, #4]
+ 453 00b2 002B     		cmp	r3, #0
+ 454 00b4 04D0     		beq	.L23
+ 129:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				*BytesProcessed = BytesTransfered;
+ 455              		.loc 1 129 21
+ 456 00b6 7B68     		ldr	r3, [r7, #4]
+ 457 00b8 FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 458 00ba 1A80     		strh	r2, [r3]	@ movhi
+ 130:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+ 459              		.loc 1 130 12
+ 460 00bc 0523     		movs	r3, #5
+ 461 00be 0DE0     		b	.L24
+ 462              	.L23:
+ 131:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 132:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 133:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if ((ErrorCode = Endpoint_WaitUntilReady()) != 0) {
+ 463              		.loc 1 133 21
+ 464 00c0 FFF7FEFF 		bl	Endpoint_WaitUntilReady
+ 465 00c4 0346     		mov	r3, r0
+ 466 00c6 7B75     		strb	r3, [r7, #21]
+ 467              		.loc 1 133 7 discriminator 1
+ 468 00c8 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 469 00ca 002B     		cmp	r3, #0
+ 470 00cc 02D0     		beq	.L19
+ 134:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ErrorCode;
+ 471              		.loc 1 134 12
+ 472 00ce 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 473 00d0 04E0     		b	.L24
+ 474              	.L26:
+ 118:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 475              		.loc 1 118 4
+ 476 00d2 00BF     		nop
+ 477              	.L19:
+ 116:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+ 478              		.loc 1 116 9
+ 479 00d4 7B89     		ldrh	r3, [r7, #10]
+ 480 00d6 002B     		cmp	r3, #0
+ 481 00d8 B4D1     		bne	.L25
+ 135:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 136:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 137:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 138:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 139:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 140:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 482              		.loc 1 140 9
+ 483 00da 0023     		movs	r3, #0
+ 484              	.L24:
+ 141:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 485              		.loc 1 141 1
+ 486 00dc 1846     		mov	r0, r3
+ 487 00de 2037     		adds	r7, r7, #32
+ 488              	.LCFI14:
+ 489              		.cfi_def_cfa_offset 8
+ 490 00e0 BD46     		mov	sp, r7
+ 491              	.LCFI15:
+ 492              		.cfi_def_cfa_register 13
+ 493              		@ sp needed
+ 494 00e2 80BD     		pop	{r7, pc}
+ 495              	.L28:
+ 496              		.align	2
+ 497              	.L27:
+ 498 00e4 00000000 		.word	device
+ 499              		.cfi_endproc
+ 500              	.LFE190:
+ 502              		.section	.text.Endpoint_Read_Stream_LE,"ax",%progbits
+ 503              		.align	1
+ 504              		.global	Endpoint_Read_Stream_LE
+ 505              		.syntax unified
+ 506              		.thumb
+ 507              		.thumb_func
+ 509              	Endpoint_Read_Stream_LE:
+ 510              	.LFB191:
+ 142:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 143:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Read_Stream_LE (void *const Buffer, uint16_t Length, uint16_t *const BytesProcesse
+ 511              		.loc 1 143 103
+ 512              		.cfi_startproc
+ 513              		@ args = 0, pretend = 0, frame = 32
+ 514              		@ frame_needed = 1, uses_anonymous_args = 0
+ 515 0000 80B5     		push	{r7, lr}
+ 516              	.LCFI16:
+ 517              		.cfi_def_cfa_offset 8
+ 518              		.cfi_offset 7, -8
+ 519              		.cfi_offset 14, -4
+ 520 0002 88B0     		sub	sp, sp, #32
+ 521              	.LCFI17:
+ 522              		.cfi_def_cfa_offset 40
+ 523 0004 00AF     		add	r7, sp, #0
+ 524              	.LCFI18:
+ 525              		.cfi_def_cfa_register 7
+ 526 0006 F860     		str	r0, [r7, #12]
+ 527 0008 0B46     		mov	r3, r1
+ 528 000a 7A60     		str	r2, [r7, #4]
+ 529 000c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 144:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t* ep = &device.Endpoints[device.CurrentEndpoint];
+ 530              		.loc 1 144 48
+ 531 000e 374B     		ldr	r3, .L39
+ 532 0010 93F83C31 		ldrb	r3, [r3, #316]	@ zero_extendqisi2
+ 533 0014 1A46     		mov	r2, r3
+ 534              		.loc 1 144 19
+ 535 0016 2C23     		movs	r3, #44
+ 536 0018 02FB03F3 		mul	r3, r2, r3
+ 537 001c 334A     		ldr	r2, .L39
+ 538 001e 1344     		add	r3, r3, r2
+ 539 0020 0433     		adds	r3, r3, #4
+ 540 0022 BB61     		str	r3, [r7, #24]
+ 145:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes = 0;
+ 541              		.loc 1 145 11
+ 542 0024 0023     		movs	r3, #0
+ 543 0026 FB82     		strh	r3, [r7, #22]	@ movhi
+ 146:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t BytesTransfered = 0;
+ 544              		.loc 1 146 11
+ 545 0028 0023     		movs	r3, #0
+ 546 002a FB83     		strh	r3, [r7, #30]	@ movhi
+ 147:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint8_t ErrorCode;
+ 148:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 149:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	if (BytesProcessed!=NULL) {
+ 547              		.loc 1 149 5
+ 548 002c 7B68     		ldr	r3, [r7, #4]
+ 549 002e 002B     		cmp	r3, #0
+ 550 0030 53D0     		beq	.L31
+ 150:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		Length -= *BytesProcessed;
+ 551              		.loc 1 150 13
+ 552 0032 7B68     		ldr	r3, [r7, #4]
+ 553 0034 1B88     		ldrh	r3, [r3]
+ 554              		.loc 1 150 10
+ 555 0036 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 556 0038 D31A     		subs	r3, r2, r3
+ 557 003a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 151:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		BytesTransfered = *BytesProcessed;
+ 558              		.loc 1 151 19
+ 559 003c 7B68     		ldr	r3, [r7, #4]
+ 560 003e 1B88     		ldrh	r3, [r3]	@ movhi
+ 561 0040 FB83     		strh	r3, [r7, #30]	@ movhi
+ 152:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 153:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 154:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+ 562              		.loc 1 154 8
+ 563 0042 4AE0     		b	.L31
+ 564              	.L37:
+ 155:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->OutInUse)
+ 565              		.loc 1 155 9
+ 566 0044 BB69     		ldr	r3, [r7, #24]
+ 567 0046 5B68     		ldr	r3, [r3, #4]
+ 568 0048 C3F3C003 		ubfx	r3, r3, #3, #1
+ 569 004c DBB2     		uxtb	r3, r3
+ 570              		.loc 1 155 6
+ 571 004e 002B     		cmp	r3, #0
+ 572 0050 42D1     		bne	.L38
+ 156:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			continue;
+ 157:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 573              		.loc 1 157 7
+ 574 0052 FFF7FEFF 		bl	Endpoint_IsReadWriteAllowed
+ 575 0056 0346     		mov	r3, r0
+ 576              		.loc 1 157 6 discriminator 1
+ 577 0058 002B     		cmp	r3, #0
+ 578 005a 2AD0     		beq	.L34
+ 158:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = ep->OutBytesAvailable  > Length ? Length : ep->OutBytesAvailable;
+ 579              		.loc 1 158 14
+ 580 005c BB69     		ldr	r3, [r7, #24]
+ 581 005e 9A68     		ldr	r2, [r3, #8]
+ 582              		.loc 1 158 35
+ 583 0060 7B89     		ldrh	r3, [r7, #10]
+ 584              		.loc 1 158 53
+ 585 0062 9342     		cmp	r3, r2
+ 586 0064 28BF     		it	cs
+ 587 0066 1346     		movcs	r3, r2
+ 588              		.loc 1 158 10
+ 589 0068 FB82     		strh	r3, [r7, #22]	@ movhi
+ 159:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			MEMCPY((void *)((uint32_t)Buffer + (uint32_t)BytesTransfered), (void *)((uint32_t)ep->OutBuffer 
+ 590              		.loc 1 159 4
+ 591 006a FA8B     		ldrh	r2, [r7, #30]
+ 592 006c FB68     		ldr	r3, [r7, #12]
+ 593 006e 1344     		add	r3, r3, r2
+ 594 0070 1846     		mov	r0, r3
+ 595 0072 BB69     		ldr	r3, [r7, #24]
+ 596 0074 1B69     		ldr	r3, [r3, #16]
+ 597 0076 1A46     		mov	r2, r3
+ 598 0078 BB69     		ldr	r3, [r7, #24]
+ 599 007a DB68     		ldr	r3, [r3, #12]
+ 600 007c 1344     		add	r3, r3, r2
+ 601 007e 1946     		mov	r1, r3
+ 602 0080 FB8A     		ldrh	r3, [r7, #22]
+ 603 0082 1A46     		mov	r2, r3
+ 604 0084 FFF7FEFF 		bl	thumb2_memcpy
+ 160:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->OutBytesAvailable -= Bytes;
+ 605              		.loc 1 160 6
+ 606 0088 BB69     		ldr	r3, [r7, #24]
+ 607 008a 9A68     		ldr	r2, [r3, #8]
+ 608              		.loc 1 160 26
+ 609 008c FB8A     		ldrh	r3, [r7, #22]
+ 610 008e D21A     		subs	r2, r2, r3
+ 611 0090 BB69     		ldr	r3, [r7, #24]
+ 612 0092 9A60     		str	r2, [r3, #8]
+ 161:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->OutOffset += Bytes;
+ 613              		.loc 1 161 6
+ 614 0094 BB69     		ldr	r3, [r7, #24]
+ 615 0096 DA68     		ldr	r2, [r3, #12]
+ 616              		.loc 1 161 18
+ 617 0098 FB8A     		ldrh	r3, [r7, #22]
+ 618 009a 1A44     		add	r2, r2, r3
+ 619 009c BB69     		ldr	r3, [r7, #24]
+ 620 009e DA60     		str	r2, [r3, #12]
+ 162:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			BytesTransfered += Bytes;
+ 621              		.loc 1 162 20
+ 622 00a0 FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 623 00a2 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 624 00a4 1344     		add	r3, r3, r2
+ 625 00a6 FB83     		strh	r3, [r7, #30]	@ movhi
+ 163:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 626              		.loc 1 163 11
+ 627 00a8 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 628 00aa FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 629 00ac D31A     		subs	r3, r2, r3
+ 630 00ae 7B81     		strh	r3, [r7, #10]	@ movhi
+ 631 00b0 13E0     		b	.L31
+ 632              	.L34:
+ 164:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 165:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		else {
+ 166:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearOUT();
+ 633              		.loc 1 166 4
+ 634 00b2 FFF7FEFF 		bl	Endpoint_ClearOUT
+ 167:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (BytesProcessed!=NULL) {
+ 635              		.loc 1 167 7
+ 636 00b6 7B68     		ldr	r3, [r7, #4]
+ 637 00b8 002B     		cmp	r3, #0
+ 638 00ba 04D0     		beq	.L35
+ 168:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				*BytesProcessed = BytesTransfered;
+ 639              		.loc 1 168 21
+ 640 00bc 7B68     		ldr	r3, [r7, #4]
+ 641 00be FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 642 00c0 1A80     		strh	r2, [r3]	@ movhi
+ 169:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+ 643              		.loc 1 169 12
+ 644 00c2 0523     		movs	r3, #5
+ 645 00c4 0DE0     		b	.L36
+ 646              	.L35:
+ 170:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 171:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 172:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if ((ErrorCode = Endpoint_WaitUntilReady()) != 0) {
+ 647              		.loc 1 172 21
+ 648 00c6 FFF7FEFF 		bl	Endpoint_WaitUntilReady
+ 649 00ca 0346     		mov	r3, r0
+ 650 00cc 7B75     		strb	r3, [r7, #21]
+ 651              		.loc 1 172 7 discriminator 1
+ 652 00ce 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 653 00d0 002B     		cmp	r3, #0
+ 654 00d2 02D0     		beq	.L31
+ 173:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ErrorCode;
+ 655              		.loc 1 173 12
+ 656 00d4 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 657 00d6 04E0     		b	.L36
+ 658              	.L38:
+ 156:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 659              		.loc 1 156 4
+ 660 00d8 00BF     		nop
+ 661              	.L31:
+ 154:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->OutInUse)
+ 662              		.loc 1 154 9
+ 663 00da 7B89     		ldrh	r3, [r7, #10]
+ 664 00dc 002B     		cmp	r3, #0
+ 665 00de B1D1     		bne	.L37
+ 174:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 175:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 176:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 177:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 178:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 666              		.loc 1 178 9
+ 667 00e0 0023     		movs	r3, #0
+ 668              	.L36:
+ 179:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 669              		.loc 1 179 1
+ 670 00e2 1846     		mov	r0, r3
+ 671 00e4 2037     		adds	r7, r7, #32
+ 672              	.LCFI19:
+ 673              		.cfi_def_cfa_offset 8
+ 674 00e6 BD46     		mov	sp, r7
+ 675              	.LCFI20:
+ 676              		.cfi_def_cfa_register 13
+ 677              		@ sp needed
+ 678 00e8 80BD     		pop	{r7, pc}
+ 679              	.L40:
+ 680 00ea 00BF     		.align	2
+ 681              	.L39:
+ 682 00ec 00000000 		.word	device
+ 683              		.cfi_endproc
+ 684              	.LFE191:
+ 686              		.section	.text.Endpoint_Read_Stream_BE,"ax",%progbits
+ 687              		.align	1
+ 688              		.global	Endpoint_Read_Stream_BE
+ 689              		.syntax unified
+ 690              		.thumb
+ 691              		.thumb_func
+ 693              	Endpoint_Read_Stream_BE:
+ 694              	.LFB192:
+ 180:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 181:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Read_Stream_BE (void *const Buffer, uint16_t Length, uint16_t *const BytesProcesse
+ 695              		.loc 1 181 103
+ 696              		.cfi_startproc
+ 697              		@ args = 0, pretend = 0, frame = 32
+ 698              		@ frame_needed = 1, uses_anonymous_args = 0
+ 699 0000 80B5     		push	{r7, lr}
+ 700              	.LCFI21:
+ 701              		.cfi_def_cfa_offset 8
+ 702              		.cfi_offset 7, -8
+ 703              		.cfi_offset 14, -4
+ 704 0002 88B0     		sub	sp, sp, #32
+ 705              	.LCFI22:
+ 706              		.cfi_def_cfa_offset 40
+ 707 0004 00AF     		add	r7, sp, #0
+ 708              	.LCFI23:
+ 709              		.cfi_def_cfa_register 7
+ 710 0006 F860     		str	r0, [r7, #12]
+ 711 0008 0B46     		mov	r3, r1
+ 712 000a 7A60     		str	r2, [r7, #4]
+ 713 000c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 182:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t* ep = &device.Endpoints[device.CurrentEndpoint];
+ 714              		.loc 1 182 48
+ 715 000e 374B     		ldr	r3, .L51
+ 716 0010 93F83C31 		ldrb	r3, [r3, #316]	@ zero_extendqisi2
+ 717 0014 1A46     		mov	r2, r3
+ 718              		.loc 1 182 19
+ 719 0016 2C23     		movs	r3, #44
+ 720 0018 02FB03F3 		mul	r3, r2, r3
+ 721 001c 334A     		ldr	r2, .L51
+ 722 001e 1344     		add	r3, r3, r2
+ 723 0020 0433     		adds	r3, r3, #4
+ 724 0022 BB61     		str	r3, [r7, #24]
+ 183:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes = 0;
+ 725              		.loc 1 183 11
+ 726 0024 0023     		movs	r3, #0
+ 727 0026 FB82     		strh	r3, [r7, #22]	@ movhi
+ 184:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t BytesTransfered = 0;
+ 728              		.loc 1 184 11
+ 729 0028 0023     		movs	r3, #0
+ 730 002a FB83     		strh	r3, [r7, #30]	@ movhi
+ 185:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint8_t ErrorCode;
+ 186:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 187:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	if (BytesProcessed!=NULL) {
+ 731              		.loc 1 187 5
+ 732 002c 7B68     		ldr	r3, [r7, #4]
+ 733 002e 002B     		cmp	r3, #0
+ 734 0030 53D0     		beq	.L43
+ 188:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		Length -= *BytesProcessed;
+ 735              		.loc 1 188 13
+ 736 0032 7B68     		ldr	r3, [r7, #4]
+ 737 0034 1B88     		ldrh	r3, [r3]
+ 738              		.loc 1 188 10
+ 739 0036 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 740 0038 D31A     		subs	r3, r2, r3
+ 741 003a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 189:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		BytesTransfered = *BytesProcessed;
+ 742              		.loc 1 189 19
+ 743 003c 7B68     		ldr	r3, [r7, #4]
+ 744 003e 1B88     		ldrh	r3, [r3]	@ movhi
+ 745 0040 FB83     		strh	r3, [r7, #30]	@ movhi
+ 190:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 191:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 192:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+ 746              		.loc 1 192 8
+ 747 0042 4AE0     		b	.L43
+ 748              	.L49:
+ 193:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+ 749              		.loc 1 193 9
+ 750 0044 BB69     		ldr	r3, [r7, #24]
+ 751 0046 5B68     		ldr	r3, [r3, #4]
+ 752 0048 C3F30013 		ubfx	r3, r3, #4, #1
+ 753 004c DBB2     		uxtb	r3, r3
+ 754              		.loc 1 193 6
+ 755 004e 002B     		cmp	r3, #0
+ 756 0050 42D1     		bne	.L50
+ 194:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			continue;
+ 195:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 757              		.loc 1 195 7
+ 758 0052 FFF7FEFF 		bl	Endpoint_IsReadWriteAllowed
+ 759 0056 0346     		mov	r3, r0
+ 760              		.loc 1 195 6 discriminator 1
+ 761 0058 002B     		cmp	r3, #0
+ 762 005a 2AD0     		beq	.L46
+ 196:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = ep->OutBytesAvailable  > Length ? Length : ep->OutBytesAvailable;
+ 763              		.loc 1 196 14
+ 764 005c BB69     		ldr	r3, [r7, #24]
+ 765 005e 9A68     		ldr	r2, [r3, #8]
+ 766              		.loc 1 196 35
+ 767 0060 7B89     		ldrh	r3, [r7, #10]
+ 768              		.loc 1 196 53
+ 769 0062 9342     		cmp	r3, r2
+ 770 0064 28BF     		it	cs
+ 771 0066 1346     		movcs	r3, r2
+ 772              		.loc 1 196 10
+ 773 0068 FB82     		strh	r3, [r7, #22]	@ movhi
+ 197:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			SwapCopy((void *)((uint32_t)Buffer + (uint32_t)BytesTransfered), (void *)((uint32_t)ep->OutBuffe
+ 774              		.loc 1 197 41
+ 775 006a FA8B     		ldrh	r2, [r7, #30]
+ 776              		.loc 1 197 22
+ 777 006c FB68     		ldr	r3, [r7, #12]
+ 778              		.loc 1 197 39
+ 779 006e 1344     		add	r3, r3, r2
+ 780              		.loc 1 197 4
+ 781 0070 1846     		mov	r0, r3
+ 782              		.loc 1 197 90
+ 783 0072 BB69     		ldr	r3, [r7, #24]
+ 784 0074 1B69     		ldr	r3, [r3, #16]
+ 785              		.loc 1 197 78
+ 786 0076 1A46     		mov	r2, r3
+ 787              		.loc 1 197 116
+ 788 0078 BB69     		ldr	r3, [r7, #24]
+ 789 007a DB68     		ldr	r3, [r3, #12]
+ 790              		.loc 1 197 102
+ 791 007c 1344     		add	r3, r3, r2
+ 792              		.loc 1 197 4
+ 793 007e 1946     		mov	r1, r3
+ 794 0080 FB8A     		ldrh	r3, [r7, #22]
+ 795 0082 1A46     		mov	r2, r3
+ 796 0084 FFF7FEFF 		bl	SwapCopy
+ 198:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->OutBytesAvailable -= Bytes;
+ 797              		.loc 1 198 6
+ 798 0088 BB69     		ldr	r3, [r7, #24]
+ 799 008a 9A68     		ldr	r2, [r3, #8]
+ 800              		.loc 1 198 26
+ 801 008c FB8A     		ldrh	r3, [r7, #22]
+ 802 008e D21A     		subs	r2, r2, r3
+ 803 0090 BB69     		ldr	r3, [r7, #24]
+ 804 0092 9A60     		str	r2, [r3, #8]
+ 199:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			ep->OutOffset += Bytes;
+ 805              		.loc 1 199 6
+ 806 0094 BB69     		ldr	r3, [r7, #24]
+ 807 0096 DA68     		ldr	r2, [r3, #12]
+ 808              		.loc 1 199 18
+ 809 0098 FB8A     		ldrh	r3, [r7, #22]
+ 810 009a 1A44     		add	r2, r2, r3
+ 811 009c BB69     		ldr	r3, [r7, #24]
+ 812 009e DA60     		str	r2, [r3, #12]
+ 200:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			BytesTransfered += Bytes;
+ 813              		.loc 1 200 20
+ 814 00a0 FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 815 00a2 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 816 00a4 1344     		add	r3, r3, r2
+ 817 00a6 FB83     		strh	r3, [r7, #30]	@ movhi
+ 201:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 818              		.loc 1 201 11
+ 819 00a8 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 820 00aa FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 821 00ac D31A     		subs	r3, r2, r3
+ 822 00ae 7B81     		strh	r3, [r7, #10]	@ movhi
+ 823 00b0 13E0     		b	.L43
+ 824              	.L46:
+ 202:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 203:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		else {
+ 204:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearOUT();
+ 825              		.loc 1 204 4
+ 826 00b2 FFF7FEFF 		bl	Endpoint_ClearOUT
+ 205:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (BytesProcessed!=NULL) {
+ 827              		.loc 1 205 7
+ 828 00b6 7B68     		ldr	r3, [r7, #4]
+ 829 00b8 002B     		cmp	r3, #0
+ 830 00ba 04D0     		beq	.L47
+ 206:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				*BytesProcessed = BytesTransfered;
+ 831              		.loc 1 206 21
+ 832 00bc 7B68     		ldr	r3, [r7, #4]
+ 833 00be FA8B     		ldrh	r2, [r7, #30]	@ movhi
+ 834 00c0 1A80     		strh	r2, [r3]	@ movhi
+ 207:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+ 835              		.loc 1 207 12
+ 836 00c2 0523     		movs	r3, #5
+ 837 00c4 0DE0     		b	.L48
+ 838              	.L47:
+ 208:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 209:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 210:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if ((ErrorCode = Endpoint_WaitUntilReady()) != 0) {
+ 839              		.loc 1 210 21
+ 840 00c6 FFF7FEFF 		bl	Endpoint_WaitUntilReady
+ 841 00ca 0346     		mov	r3, r0
+ 842 00cc 7B75     		strb	r3, [r7, #21]
+ 843              		.loc 1 210 7 discriminator 1
+ 844 00ce 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 845 00d0 002B     		cmp	r3, #0
+ 846 00d2 02D0     		beq	.L43
+ 211:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				return ErrorCode;
+ 847              		.loc 1 211 12
+ 848 00d4 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 849 00d6 04E0     		b	.L48
+ 850              	.L50:
+ 194:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (Endpoint_IsReadWriteAllowed()) {
+ 851              		.loc 1 194 4
+ 852 00d8 00BF     		nop
+ 853              	.L43:
+ 192:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (ep->InInUse)
+ 854              		.loc 1 192 9
+ 855 00da 7B89     		ldrh	r3, [r7, #10]
+ 856 00dc 002B     		cmp	r3, #0
+ 857 00de B1D1     		bne	.L49
+ 212:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 213:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 214:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 215:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 216:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 217:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 858              		.loc 1 217 9
+ 859 00e0 0023     		movs	r3, #0
+ 860              	.L48:
+ 218:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 861              		.loc 1 218 1
+ 862 00e2 1846     		mov	r0, r3
+ 863 00e4 2037     		adds	r7, r7, #32
+ 864              	.LCFI24:
+ 865              		.cfi_def_cfa_offset 8
+ 866 00e6 BD46     		mov	sp, r7
+ 867              	.LCFI25:
+ 868              		.cfi_def_cfa_register 13
+ 869              		@ sp needed
+ 870 00e8 80BD     		pop	{r7, pc}
+ 871              	.L52:
+ 872 00ea 00BF     		.align	2
+ 873              	.L51:
+ 874 00ec 00000000 		.word	device
+ 875              		.cfi_endproc
+ 876              	.LFE192:
+ 878              		.section	.text.Endpoint_Write_Control_Stream_LE,"ax",%progbits
+ 879              		.align	1
+ 880              		.global	Endpoint_Write_Control_Stream_LE
+ 881              		.syntax unified
+ 882              		.thumb
+ 883              		.thumb_func
+ 885              	Endpoint_Write_Control_Stream_LE:
+ 886              	.LFB193:
+ 219:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 220:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Write_Control_Stream_LE (const void *const Buffer, uint16_t Length) {
+ 887              		.loc 1 220 86
+ 888              		.cfi_startproc
+ 889              		@ args = 0, pretend = 0, frame = 16
+ 890              		@ frame_needed = 1, uses_anonymous_args = 0
+ 891 0000 80B5     		push	{r7, lr}
+ 892              	.LCFI26:
+ 893              		.cfi_def_cfa_offset 8
+ 894              		.cfi_offset 7, -8
+ 895              		.cfi_offset 14, -4
+ 896 0002 84B0     		sub	sp, sp, #16
+ 897              	.LCFI27:
+ 898              		.cfi_def_cfa_offset 24
+ 899 0004 00AF     		add	r7, sp, #0
+ 900              	.LCFI28:
+ 901              		.cfi_def_cfa_register 7
+ 902 0006 7860     		str	r0, [r7, #4]
+ 903 0008 0B46     		mov	r3, r1
+ 904 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 221:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t *EndPoint = &device.Endpoints[0];
+ 905              		.loc 1 221 19
+ 906 000c 174B     		ldr	r3, .L60
+ 907 000e BB60     		str	r3, [r7, #8]
+ 222:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes;
+ 223:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 224:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+ 908              		.loc 1 224 8
+ 909 0010 24E0     		b	.L55
+ 910              	.L58:
+ 225:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (!EndPoint->InInUse) {
+ 911              		.loc 1 225 16
+ 912 0012 BB68     		ldr	r3, [r7, #8]
+ 913 0014 5B68     		ldr	r3, [r3, #4]
+ 914 0016 C3F30013 		ubfx	r3, r3, #4, #1
+ 915 001a DBB2     		uxtb	r3, r3
+ 916              		.loc 1 225 6
+ 917 001c 002B     		cmp	r3, #0
+ 918 001e 1DD1     		bne	.L55
+ 226:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (EndPoint->InBufferLength > Length) {
+ 919              		.loc 1 226 16
+ 920 0020 BB68     		ldr	r3, [r7, #8]
+ 921 0022 1A6A     		ldr	r2, [r3, #32]
+ 922              		.loc 1 226 33
+ 923 0024 7B88     		ldrh	r3, [r7, #2]
+ 924              		.loc 1 226 7
+ 925 0026 9A42     		cmp	r2, r3
+ 926 0028 02D9     		bls	.L56
+ 227:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				Bytes = Length;
+ 927              		.loc 1 227 11
+ 928 002a 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 929 002c FB81     		strh	r3, [r7, #14]	@ movhi
+ 930 002e 02E0     		b	.L57
+ 931              	.L56:
+ 228:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			} else {
+ 229:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				Bytes = EndPoint->InBufferLength;
+ 932              		.loc 1 229 21
+ 933 0030 BB68     		ldr	r3, [r7, #8]
+ 934 0032 1B6A     		ldr	r3, [r3, #32]
+ 935              		.loc 1 229 11
+ 936 0034 FB81     		strh	r3, [r7, #14]	@ movhi
+ 937              	.L57:
+ 230:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 231:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			MEMCPY(EndPoint->InBuffer,Buffer,Bytes);
+ 938              		.loc 1 231 4
+ 939 0036 BB68     		ldr	r3, [r7, #8]
+ 940 0038 DB69     		ldr	r3, [r3, #28]
+ 941 003a FA89     		ldrh	r2, [r7, #14]
+ 942 003c 7968     		ldr	r1, [r7, #4]
+ 943 003e 1846     		mov	r0, r3
+ 944 0040 FFF7FEFF 		bl	thumb2_memcpy
+ 232:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			EndPoint->InBytesAvailable += Bytes;
+ 945              		.loc 1 232 12
+ 946 0044 BB68     		ldr	r3, [r7, #8]
+ 947 0046 9A69     		ldr	r2, [r3, #24]
+ 948              		.loc 1 232 31
+ 949 0048 FB89     		ldrh	r3, [r7, #14]
+ 950 004a 1A44     		add	r2, r2, r3
+ 951 004c BB68     		ldr	r3, [r7, #8]
+ 952 004e 9A61     		str	r2, [r3, #24]
+ 233:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 953              		.loc 1 233 11
+ 954 0050 7A88     		ldrh	r2, [r7, #2]	@ movhi
+ 955 0052 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 956 0054 D31A     		subs	r3, r2, r3
+ 957 0056 7B80     		strh	r3, [r7, #2]	@ movhi
+ 234:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 235:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearIN();
+ 958              		.loc 1 235 4
+ 959 0058 FFF7FEFF 		bl	Endpoint_ClearIN
+ 960              	.L55:
+ 224:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (!EndPoint->InInUse) {
+ 961              		.loc 1 224 9
+ 962 005c 7B88     		ldrh	r3, [r7, #2]
+ 963 005e 002B     		cmp	r3, #0
+ 964 0060 D7D1     		bne	.L58
+ 236:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 237:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 238:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWCSTREAM_NoError;
+ 965              		.loc 1 238 9
+ 966 0062 0023     		movs	r3, #0
+ 239:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 967              		.loc 1 239 1
+ 968 0064 1846     		mov	r0, r3
+ 969 0066 1037     		adds	r7, r7, #16
+ 970              	.LCFI29:
+ 971              		.cfi_def_cfa_offset 8
+ 972 0068 BD46     		mov	sp, r7
+ 973              	.LCFI30:
+ 974              		.cfi_def_cfa_register 13
+ 975              		@ sp needed
+ 976 006a 80BD     		pop	{r7, pc}
+ 977              	.L61:
+ 978              		.align	2
+ 979              	.L60:
+ 980 006c 04000000 		.word	device+4
+ 981              		.cfi_endproc
+ 982              	.LFE193:
+ 984              		.section	.text.Endpoint_Write_Control_Stream_BE,"ax",%progbits
+ 985              		.align	1
+ 986              		.global	Endpoint_Write_Control_Stream_BE
+ 987              		.syntax unified
+ 988              		.thumb
+ 989              		.thumb_func
+ 991              	Endpoint_Write_Control_Stream_BE:
+ 992              	.LFB194:
+ 240:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 241:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Write_Control_Stream_BE (const void *const Buffer, uint16_t Length) {
+ 993              		.loc 1 241 86
+ 994              		.cfi_startproc
+ 995              		@ args = 0, pretend = 0, frame = 8
+ 996              		@ frame_needed = 1, uses_anonymous_args = 0
+ 997 0000 80B5     		push	{r7, lr}
+ 998              	.LCFI31:
+ 999              		.cfi_def_cfa_offset 8
+ 1000              		.cfi_offset 7, -8
+ 1001              		.cfi_offset 14, -4
+ 1002 0002 82B0     		sub	sp, sp, #8
+ 1003              	.LCFI32:
+ 1004              		.cfi_def_cfa_offset 16
+ 1005 0004 00AF     		add	r7, sp, #0
+ 1006              	.LCFI33:
+ 1007              		.cfi_def_cfa_register 7
+ 1008 0006 7860     		str	r0, [r7, #4]
+ 1009 0008 0B46     		mov	r3, r1
+ 1010 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 242:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return Endpoint_Write_Control_Stream_LE(Buffer,Length);
+ 1011              		.loc 1 242 9
+ 1012 000c 7B88     		ldrh	r3, [r7, #2]
+ 1013 000e 1946     		mov	r1, r3
+ 1014 0010 7868     		ldr	r0, [r7, #4]
+ 1015 0012 FFF7FEFF 		bl	Endpoint_Write_Control_Stream_LE
+ 1016 0016 0346     		mov	r3, r0
+ 243:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 1017              		.loc 1 243 1
+ 1018 0018 1846     		mov	r0, r3
+ 1019 001a 0837     		adds	r7, r7, #8
+ 1020              	.LCFI34:
+ 1021              		.cfi_def_cfa_offset 8
+ 1022 001c BD46     		mov	sp, r7
+ 1023              	.LCFI35:
+ 1024              		.cfi_def_cfa_register 13
+ 1025              		@ sp needed
+ 1026 001e 80BD     		pop	{r7, pc}
+ 1027              		.cfi_endproc
+ 1028              	.LFE194:
+ 1030              		.section	.text.Endpoint_Read_Control_Stream_LE,"ax",%progbits
+ 1031              		.align	1
+ 1032              		.global	Endpoint_Read_Control_Stream_LE
+ 1033              		.syntax unified
+ 1034              		.thumb
+ 1035              		.thumb_func
+ 1037              	Endpoint_Read_Control_Stream_LE:
+ 1038              	.LFB195:
+ 244:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 245:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Read_Control_Stream_LE (void *const Buffer, uint16_t Length) {
+ 1039              		.loc 1 245 79
+ 1040              		.cfi_startproc
+ 1041              		@ args = 0, pretend = 0, frame = 16
+ 1042              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1043 0000 80B5     		push	{r7, lr}
+ 1044              	.LCFI36:
+ 1045              		.cfi_def_cfa_offset 8
+ 1046              		.cfi_offset 7, -8
+ 1047              		.cfi_offset 14, -4
+ 1048 0002 84B0     		sub	sp, sp, #16
+ 1049              	.LCFI37:
+ 1050              		.cfi_def_cfa_offset 24
+ 1051 0004 00AF     		add	r7, sp, #0
+ 1052              	.LCFI38:
+ 1053              		.cfi_def_cfa_register 7
+ 1054 0006 7860     		str	r0, [r7, #4]
+ 1055 0008 0B46     		mov	r3, r1
+ 1056 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 246:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t *EndPoint = &device.Endpoints[0];
+ 1057              		.loc 1 246 19
+ 1058 000c 154B     		ldr	r3, .L69
+ 1059 000e FB60     		str	r3, [r7, #12]
+ 247:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	uint16_t Bytes;
+ 248:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 249:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	while (Length) {
+ 1060              		.loc 1 249 8
+ 1061 0010 20E0     		b	.L66
+ 1062              	.L67:
+ 250:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (EndPoint->IsOutRecieved) {
+ 1063              		.loc 1 250 15
+ 1064 0012 FB68     		ldr	r3, [r7, #12]
+ 1065 0014 5B68     		ldr	r3, [r3, #4]
+ 1066 0016 C3F34013 		ubfx	r3, r3, #5, #1
+ 1067 001a DBB2     		uxtb	r3, r3
+ 1068              		.loc 1 250 6
+ 1069 001c 002B     		cmp	r3, #0
+ 1070 001e 19D0     		beq	.L66
+ 251:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = EndPoint->OutBytesAvailable > Length
+ 1071              		.loc 1 251 20
+ 1072 0020 FB68     		ldr	r3, [r7, #12]
+ 1073 0022 9A68     		ldr	r2, [r3, #8]
+ 1074              		.loc 1 251 40
+ 1075 0024 7B88     		ldrh	r3, [r7, #2]
+ 252:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 					? Length : EndPoint->OutBytesAvailable;
+ 1076              		.loc 1 252 15
+ 1077 0026 9342     		cmp	r3, r2
+ 1078 0028 28BF     		it	cs
+ 1079 002a 1346     		movcs	r3, r2
+ 251:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Bytes = EndPoint->OutBytesAvailable > Length
+ 1080              		.loc 1 251 10
+ 1081 002c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 253:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			MEMCPY(Buffer,EndPoint->OutBuffer,Bytes);
+ 1082              		.loc 1 253 4
+ 1083 002e FB68     		ldr	r3, [r7, #12]
+ 1084 0030 1B69     		ldr	r3, [r3, #16]
+ 1085 0032 7A89     		ldrh	r2, [r7, #10]
+ 1086 0034 1946     		mov	r1, r3
+ 1087 0036 7868     		ldr	r0, [r7, #4]
+ 1088 0038 FFF7FEFF 		bl	thumb2_memcpy
+ 254:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			EndPoint->OutBytesAvailable -= Bytes;
+ 1089              		.loc 1 254 12
+ 1090 003c FB68     		ldr	r3, [r7, #12]
+ 1091 003e 9A68     		ldr	r2, [r3, #8]
+ 1092              		.loc 1 254 32
+ 1093 0040 7B89     		ldrh	r3, [r7, #10]
+ 1094 0042 D21A     		subs	r2, r2, r3
+ 1095 0044 FB68     		ldr	r3, [r7, #12]
+ 1096 0046 9A60     		str	r2, [r3, #8]
+ 255:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= Bytes;
+ 1097              		.loc 1 255 11
+ 1098 0048 7A88     		ldrh	r2, [r7, #2]	@ movhi
+ 1099 004a 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 1100 004c D31A     		subs	r3, r2, r3
+ 1101 004e 7B80     		strh	r3, [r7, #2]	@ movhi
+ 256:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 257:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Endpoint_ClearOUT();
+ 1102              		.loc 1 257 4
+ 1103 0050 FFF7FEFF 		bl	Endpoint_ClearOUT
+ 1104              	.L66:
+ 249:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (EndPoint->IsOutRecieved) {
+ 1105              		.loc 1 249 9
+ 1106 0054 7B88     		ldrh	r3, [r7, #2]
+ 1107 0056 002B     		cmp	r3, #0
+ 1108 0058 DBD1     		bne	.L67
+ 258:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 259:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	}
+ 260:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return ENDPOINT_RWCSTREAM_NoError;
+ 1109              		.loc 1 260 9
+ 1110 005a 0023     		movs	r3, #0
+ 261:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 1111              		.loc 1 261 1
+ 1112 005c 1846     		mov	r0, r3
+ 1113 005e 1037     		adds	r7, r7, #16
+ 1114              	.LCFI39:
+ 1115              		.cfi_def_cfa_offset 8
+ 1116 0060 BD46     		mov	sp, r7
+ 1117              	.LCFI40:
+ 1118              		.cfi_def_cfa_register 13
+ 1119              		@ sp needed
+ 1120 0062 80BD     		pop	{r7, pc}
+ 1121              	.L70:
+ 1122              		.align	2
+ 1123              	.L69:
+ 1124 0064 04000000 		.word	device+4
+ 1125              		.cfi_endproc
+ 1126              	.LFE195:
+ 1128              		.section	.text.Endpoint_Read_Control_Stream_BE,"ax",%progbits
+ 1129              		.align	1
+ 1130              		.global	Endpoint_Read_Control_Stream_BE
+ 1131              		.syntax unified
+ 1132              		.thumb
+ 1133              		.thumb_func
+ 1135              	Endpoint_Read_Control_Stream_BE:
+ 1136              	.LFB196:
+ 262:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 263:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t	Endpoint_Read_Control_Stream_BE (void *const Buffer, uint16_t Length) {
+ 1137              		.loc 1 263 79
+ 1138              		.cfi_startproc
+ 1139              		@ args = 0, pretend = 0, frame = 8
+ 1140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1141 0000 80B5     		push	{r7, lr}
+ 1142              	.LCFI41:
+ 1143              		.cfi_def_cfa_offset 8
+ 1144              		.cfi_offset 7, -8
+ 1145              		.cfi_offset 14, -4
+ 1146 0002 82B0     		sub	sp, sp, #8
+ 1147              	.LCFI42:
+ 1148              		.cfi_def_cfa_offset 16
+ 1149 0004 00AF     		add	r7, sp, #0
+ 1150              	.LCFI43:
+ 1151              		.cfi_def_cfa_register 7
+ 1152 0006 7860     		str	r0, [r7, #4]
+ 1153 0008 0B46     		mov	r3, r1
+ 1154 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 264:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	return Endpoint_Read_Control_Stream_LE(Buffer,Length);
+ 1155              		.loc 1 264 9
+ 1156 000c 7B88     		ldrh	r3, [r7, #2]
+ 1157 000e 1946     		mov	r1, r3
+ 1158 0010 7868     		ldr	r0, [r7, #4]
+ 1159 0012 FFF7FEFF 		bl	Endpoint_Read_Control_Stream_LE
+ 1160 0016 0346     		mov	r3, r0
+ 265:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 1161              		.loc 1 265 1
+ 1162 0018 1846     		mov	r0, r3
+ 1163 001a 0837     		adds	r7, r7, #8
+ 1164              	.LCFI44:
+ 1165              		.cfi_def_cfa_offset 8
+ 1166 001c BD46     		mov	sp, r7
+ 1167              	.LCFI45:
+ 1168              		.cfi_def_cfa_register 13
+ 1169              		@ sp needed
+ 1170 001e 80BD     		pop	{r7, pc}
+ 1171              		.cfi_endproc
+ 1172              	.LFE196:
+ 1174              		.section	.text.Endpoint_Null_Stream,"ax",%progbits
+ 1175              		.align	1
+ 1176              		.global	Endpoint_Null_Stream
+ 1177              		.syntax unified
+ 1178              		.thumb
+ 1179              		.thumb_func
+ 1181              	Endpoint_Null_Stream:
+ 1182              	.LFB197:
+ 266:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 267:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** uint8_t Endpoint_Null_Stream(uint16_t Length,
+ 268:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 								 uint16_t* const BytesProcessed) {
+ 1183              		.loc 1 268 42
+ 1184              		.cfi_startproc
+ 1185              		@ args = 0, pretend = 0, frame = 24
+ 1186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1187 0000 80B5     		push	{r7, lr}
+ 1188              	.LCFI46:
+ 1189              		.cfi_def_cfa_offset 8
+ 1190              		.cfi_offset 7, -8
+ 1191              		.cfi_offset 14, -4
+ 1192 0002 86B0     		sub	sp, sp, #24
+ 1193              	.LCFI47:
+ 1194              		.cfi_def_cfa_offset 32
+ 1195 0004 00AF     		add	r7, sp, #0
+ 1196              	.LCFI48:
+ 1197              		.cfi_def_cfa_register 7
+ 1198 0006 0346     		mov	r3, r0
+ 1199 0008 3960     		str	r1, [r7]
+ 1200 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 269:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 	USBD_Endpoint_t* ep = &device.Endpoints[device.CurrentEndpoint];
+ 1201              		.loc 1 269 48
+ 1202 000c 324B     		ldr	r3, .L83
+ 1203 000e 93F83C31 		ldrb	r3, [r3, #316]	@ zero_extendqisi2
+ 1204 0012 1A46     		mov	r2, r3
+ 1205              		.loc 1 269 19
+ 1206 0014 2C23     		movs	r3, #44
+ 1207 0016 02FB03F3 		mul	r3, r2, r3
+ 1208 001a 2F4A     		ldr	r2, .L83
+ 1209 001c 1344     		add	r3, r3, r2
+ 1210 001e 0433     		adds	r3, r3, #4
+ 1211 0020 3B61     		str	r3, [r7, #16]
+ 270:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		uint16_t Bytes = 0;
+ 1212              		.loc 1 270 12
+ 1213 0022 0023     		movs	r3, #0
+ 1214 0024 FB81     		strh	r3, [r7, #14]	@ movhi
+ 271:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		uint16_t BytesTransfered = 0;
+ 1215              		.loc 1 271 12
+ 1216 0026 0023     		movs	r3, #0
+ 1217 0028 FB82     		strh	r3, [r7, #22]	@ movhi
+ 272:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		uint8_t ErrorCode;
+ 273:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 274:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		if (BytesProcessed!=NULL) {
+ 1218              		.loc 1 274 6
+ 1219 002a 3B68     		ldr	r3, [r7]
+ 1220 002c 002B     		cmp	r3, #0
+ 1221 002e 4BD0     		beq	.L75
+ 275:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			Length -= *BytesProcessed;
+ 1222              		.loc 1 275 14
+ 1223 0030 3B68     		ldr	r3, [r7]
+ 1224 0032 1B88     		ldrh	r3, [r3]
+ 1225              		.loc 1 275 11
+ 1226 0034 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 1227 0036 D31A     		subs	r3, r2, r3
+ 1228 0038 FB80     		strh	r3, [r7, #6]	@ movhi
+ 276:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			BytesTransfered = *BytesProcessed;
+ 1229              		.loc 1 276 20
+ 1230 003a 3B68     		ldr	r3, [r7]
+ 1231 003c 1B88     		ldrh	r3, [r3]	@ movhi
+ 1232 003e FB82     		strh	r3, [r7, #22]	@ movhi
+ 277:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 278:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 279:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		while (Length) {
+ 1233              		.loc 1 279 9
+ 1234 0040 42E0     		b	.L75
+ 1235              	.L81:
+ 280:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (ep->InInUse)
+ 1236              		.loc 1 280 10
+ 1237 0042 3B69     		ldr	r3, [r7, #16]
+ 1238 0044 5B68     		ldr	r3, [r3, #4]
+ 1239 0046 C3F30013 		ubfx	r3, r3, #4, #1
+ 1240 004a DBB2     		uxtb	r3, r3
+ 1241              		.loc 1 280 7
+ 1242 004c 002B     		cmp	r3, #0
+ 1243 004e 3AD1     		bne	.L82
+ 281:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				continue;
+ 282:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (Endpoint_IsReadWriteAllowed()) {
+ 1244              		.loc 1 282 8
+ 1245 0050 FFF7FEFF 		bl	Endpoint_IsReadWriteAllowed
+ 1246 0054 0346     		mov	r3, r0
+ 1247              		.loc 1 282 7 discriminator 1
+ 1248 0056 002B     		cmp	r3, #0
+ 1249 0058 22D0     		beq	.L78
+ 283:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				Bytes = ep->InBufferLength - ep->InBytesAvailable  > Length ? Length : ep->InBufferLength - ep-
+ 1250              		.loc 1 283 15
+ 1251 005a 3B69     		ldr	r3, [r7, #16]
+ 1252 005c 1A6A     		ldr	r2, [r3, #32]
+ 1253              		.loc 1 283 36
+ 1254 005e 3B69     		ldr	r3, [r7, #16]
+ 1255 0060 9B69     		ldr	r3, [r3, #24]
+ 1256              		.loc 1 283 32
+ 1257 0062 D21A     		subs	r2, r2, r3
+ 1258              		.loc 1 283 56
+ 1259 0064 FB88     		ldrh	r3, [r7, #6]
+ 1260              		.loc 1 283 74
+ 1261 0066 9342     		cmp	r3, r2
+ 1262 0068 28BF     		it	cs
+ 1263 006a 1346     		movcs	r3, r2
+ 1264              		.loc 1 283 11
+ 1265 006c FB81     		strh	r3, [r7, #14]	@ movhi
+ 284:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				memset(ep->InBuffer + ep->InBytesAvailable,0x0,Bytes);
+ 1266              		.loc 1 284 14
+ 1267 006e 3B69     		ldr	r3, [r7, #16]
+ 1268 0070 DA69     		ldr	r2, [r3, #28]
+ 1269              		.loc 1 284 29
+ 1270 0072 3B69     		ldr	r3, [r7, #16]
+ 1271 0074 9B69     		ldr	r3, [r3, #24]
+ 1272              		.loc 1 284 25
+ 1273 0076 1344     		add	r3, r3, r2
+ 1274              		.loc 1 284 5
+ 1275 0078 FA89     		ldrh	r2, [r7, #14]
+ 1276 007a 0021     		movs	r1, #0
+ 1277 007c 1846     		mov	r0, r3
+ 1278 007e FFF7FEFF 		bl	memset
+ 285:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				ep->InBytesAvailable += Bytes;
+ 1279              		.loc 1 285 7
+ 1280 0082 3B69     		ldr	r3, [r7, #16]
+ 1281 0084 9A69     		ldr	r2, [r3, #24]
+ 1282              		.loc 1 285 26
+ 1283 0086 FB89     		ldrh	r3, [r7, #14]
+ 1284 0088 1A44     		add	r2, r2, r3
+ 1285 008a 3B69     		ldr	r3, [r7, #16]
+ 1286 008c 9A61     		str	r2, [r3, #24]
+ 286:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				BytesTransfered += Bytes;
+ 1287              		.loc 1 286 21
+ 1288 008e FA8A     		ldrh	r2, [r7, #22]	@ movhi
+ 1289 0090 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 1290 0092 1344     		add	r3, r3, r2
+ 1291 0094 FB82     		strh	r3, [r7, #22]	@ movhi
+ 287:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				Length -= Bytes;
+ 1292              		.loc 1 287 12
+ 1293 0096 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 1294 0098 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 1295 009a D31A     		subs	r3, r2, r3
+ 1296 009c FB80     		strh	r3, [r7, #6]	@ movhi
+ 1297 009e 13E0     		b	.L75
+ 1298              	.L78:
+ 288:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 289:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			else {
+ 290:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				Endpoint_ClearIN();
+ 1299              		.loc 1 290 5
+ 1300 00a0 FFF7FEFF 		bl	Endpoint_ClearIN
+ 291:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				if (BytesProcessed!=NULL) {
+ 1301              		.loc 1 291 8
+ 1302 00a4 3B68     		ldr	r3, [r7]
+ 1303 00a6 002B     		cmp	r3, #0
+ 1304 00a8 04D0     		beq	.L79
+ 292:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 					*BytesProcessed = BytesTransfered;
+ 1305              		.loc 1 292 22
+ 1306 00aa 3B68     		ldr	r3, [r7]
+ 1307 00ac FA8A     		ldrh	r2, [r7, #22]	@ movhi
+ 1308 00ae 1A80     		strh	r2, [r3]	@ movhi
+ 293:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 					return ENDPOINT_RWSTREAM_IncompleteTransfer;
+ 1309              		.loc 1 293 13
+ 1310 00b0 0523     		movs	r3, #5
+ 1311 00b2 0DE0     		b	.L80
+ 1312              	.L79:
+ 294:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				}
+ 295:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 296:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				if ((ErrorCode = Endpoint_WaitUntilReady()) != 0) {
+ 1313              		.loc 1 296 22
+ 1314 00b4 FFF7FEFF 		bl	Endpoint_WaitUntilReady
+ 1315 00b8 0346     		mov	r3, r0
+ 1316 00ba 7B73     		strb	r3, [r7, #13]
+ 1317              		.loc 1 296 8 discriminator 1
+ 1318 00bc 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 1319 00be 002B     		cmp	r3, #0
+ 1320 00c0 02D0     		beq	.L75
+ 297:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 					return ErrorCode;
+ 1321              		.loc 1 297 13
+ 1322 00c2 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 1323 00c4 04E0     		b	.L80
+ 1324              	.L82:
+ 281:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (Endpoint_IsReadWriteAllowed()) {
+ 1325              		.loc 1 281 5
+ 1326 00c6 00BF     		nop
+ 1327              	.L75:
+ 279:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			if (ep->InInUse)
+ 1328              		.loc 1 279 10
+ 1329 00c8 FB88     		ldrh	r3, [r7, #6]
+ 1330 00ca 002B     		cmp	r3, #0
+ 1331 00cc B9D1     		bne	.L81
+ 298:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 				}
+ 299:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 300:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 
+ 301:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 			}
+ 302:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		}
+ 303:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** 		return ENDPOINT_RWSTREAM_NoError;
+ 1332              		.loc 1 303 10
+ 1333 00ce 0023     		movs	r3, #0
+ 1334              	.L80:
+ 304:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/EndpointStream_XMC4000.c **** }
+ 1335              		.loc 1 304 1
+ 1336 00d0 1846     		mov	r0, r3
+ 1337 00d2 1837     		adds	r7, r7, #24
+ 1338              	.LCFI49:
+ 1339              		.cfi_def_cfa_offset 8
+ 1340 00d4 BD46     		mov	sp, r7
+ 1341              	.LCFI50:
+ 1342              		.cfi_def_cfa_register 13
+ 1343              		@ sp needed
+ 1344 00d6 80BD     		pop	{r7, pc}
+ 1345              	.L84:
+ 1346              		.align	2
+ 1347              	.L83:
+ 1348 00d8 00000000 		.word	device
+ 1349              		.cfi_endproc
+ 1350              	.LFE197:
+ 1352              		.text
+ 1353              	.Letext0:
+ 1354              		.file 2 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/machine/_defa
+ 1355              		.file 3 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/_stdint.h
+ 1356              		.file 4 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/lib/gcc/arm-none-eabi/14.2.1/includ
+ 1357              		.file 5 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/CMSIS/Infineon/XMC4500_series/Include/XMC4500.
+ 1358              		.file 6 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/XMCLib/inc/xmc_usbd.h"
+ 1359              		.file 7 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/..
+ 1360              		.file 8 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/..
+ 1361              		.file 9 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/..
+ 1362              		.file 10 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/string.h"
+ 1363              		.file 11 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/USBlib/USB/Core/XMC4000/.
+DEFINED SYMBOLS
+                            *ABS*:00000000 EndpointStream_XMC4000.c
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:23     .bss:00000000 zlp_flag
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:24     .bss:00000000 $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:26     .text.Endpoint_Write_Stream_LE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:32     .text.Endpoint_Write_Stream_LE:00000000 Endpoint_Write_Stream_LE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:228    .text.Endpoint_Write_Stream_LE:0000010c $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:234    .text.SwapCopy:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:240    .text.SwapCopy:00000000 SwapCopy
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:314    .text.Endpoint_Write_Stream_BE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:320    .text.Endpoint_Write_Stream_BE:00000000 Endpoint_Write_Stream_BE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:498    .text.Endpoint_Write_Stream_BE:000000e4 $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:503    .text.Endpoint_Read_Stream_LE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:509    .text.Endpoint_Read_Stream_LE:00000000 Endpoint_Read_Stream_LE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:682    .text.Endpoint_Read_Stream_LE:000000ec $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:687    .text.Endpoint_Read_Stream_BE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:693    .text.Endpoint_Read_Stream_BE:00000000 Endpoint_Read_Stream_BE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:874    .text.Endpoint_Read_Stream_BE:000000ec $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:879    .text.Endpoint_Write_Control_Stream_LE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:885    .text.Endpoint_Write_Control_Stream_LE:00000000 Endpoint_Write_Control_Stream_LE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:980    .text.Endpoint_Write_Control_Stream_LE:0000006c $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:985    .text.Endpoint_Write_Control_Stream_BE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:991    .text.Endpoint_Write_Control_Stream_BE:00000000 Endpoint_Write_Control_Stream_BE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1031   .text.Endpoint_Read_Control_Stream_LE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1037   .text.Endpoint_Read_Control_Stream_LE:00000000 Endpoint_Read_Control_Stream_LE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1124   .text.Endpoint_Read_Control_Stream_LE:00000064 $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1129   .text.Endpoint_Read_Control_Stream_BE:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1135   .text.Endpoint_Read_Control_Stream_BE:00000000 Endpoint_Read_Control_Stream_BE
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1175   .text.Endpoint_Null_Stream:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1181   .text.Endpoint_Null_Stream:00000000 Endpoint_Null_Stream
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccEn19At.s:1348   .text.Endpoint_Null_Stream:000000d8 $d
+                           .group:00000000 wm4.0.241ce140b5afdc8837fba2b44cc07f6b
+                           .group:00000000 wm4.Common.h.60.c2f00e237f5994003db83c2422602b22
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.features.h.33.00009458517f941082eec7afb4810922
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.stdbool.h.29.c08aa3eec75cf5b9b5003883f43253f0
+                           .group:00000000 wm4.newlib.h.7.591ac1bd65c1f5b34864757667a05252
+                           .group:00000000 wm4.ieeefp.h.77.61a77db5804869b1dadd307a77cf78c9
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4.cdefs.h.49.bafb023044e47a1dcdd854e4d6521f7d
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.78.6b87466b04591b1f1cb88c14fdf2ba9e
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.BoardTypes.h.52.ca64813ccee737bcc2115eab5e075fdb
+                           .group:00000000 wm4.CompilerSpecific.h.55.4a5e5ff77cd35e49c89cf2115251aee0
+                           .group:00000000 wm4.Attributes.h.56.73b3ee26b0836c2dec569a5fa6f1b355
+                           .group:00000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
+                           .group:00000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
+                           .group:00000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
+                           .group:00000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
+                           .group:00000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
+                           .group:00000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
+                           .group:00000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
+                           .group:00000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
+                           .group:00000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
+                           .group:00000000 wm4.Endianness.h.57.3ac00c5468f4b91b806a0e6dba047e9c
+                           .group:00000000 wm4.Common.h.105.4b937a9cc9dcdb26c3f07541b0b763a8
+                           .group:00000000 wm4.USBController.h.49.cbfc73805155b6fff6267400af3f4eec
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.f4862cfbf4363a1db01842d5bdf72c18
+                           .group:00000000 wm4.xmc_usbd_regs.h.80.57c6c85fa0ecbc9f8327ce445aebb9bc
+                           .group:00000000 wm4.xmc4_scu.h.83.0449f5880ac071460ec1a8072311ea51
+                           .group:00000000 wm4.xmc_usbd.h.122.ce57a9e6a9da48ee33ece02813c49593
+                           .group:00000000 wm4.USBController_XMC4000.h.71.902f2653e09cb8b25245faa82cc6b907
+                           .group:00000000 wm4.StdDescriptors.h.73.7d17e8be7a73b855fc0f8827303b7597
+                           .group:00000000 wm4.Endpoint.h.73.3734de3e84ab23fb43d81f41fba620ec
+                           .group:00000000 wm4.Device_XMC4000.h.86.6803bdd99d84e764a570256c87a24d0a
+                           .group:00000000 wm4.StdRequestType.h.50.461dce94a3ee1fa9ff31ec5f28bd9699
+
+UNDEFINED SYMBOLS
+Endpoint_IsReadWriteAllowed
+thumb2_memcpy
+Endpoint_ClearIN
+Endpoint_WaitUntilReady
+device
+Endpoint_ClearOUT
+memset

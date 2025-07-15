@@ -1,0 +1,299 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"syscalls.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c"
+  19              		.weak	__dso_handle
+  20              		.bss
+  21              		.align	2
+  24              	__dso_handle:
+  25 0000 00000000 		.space	4
+  26              		.section	.text._sbrk,"ax",%progbits
+  27              		.align	1
+  28              		.global	_sbrk
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  33              	_sbrk:
+  34              	.LFB0:
+   1:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** /**************************************************************************************************
+   2:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @file     syscalls.c
+   3:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @brief    Newlib stubs
+   4:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @version  V1.6
+   5:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @date     20 Apr 2017
+   6:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+   7:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @cond
+   8:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  **************************************************************************************************
+   9:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Copyright (c) 2015-2017, Infineon Technologies AG
+  10:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * All rights reserved.
+  11:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  12:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * following conditions are met:
+  14:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  15:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * disclaimer.
+  17:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  18:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.
+  20:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  21:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * products derived from this software without specific prior written permission.
+  23:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  24:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  31:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  32:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * Infineon Technologies AG dave@infineon.com).
+  34:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  **************************************************************************************************
+  35:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  36:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * *************************** Change history ********************************
+  37:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V0.1                  : Initial version
+  38:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V0.2                  : Label updates
+  39:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.0                  : Made _sbrk device agnostic
+  40:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.1                  : C++ support
+  41:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.2                  : Restored compatibility with old project files
+  42:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.3    Jan 2014, PKB : Encapsulating everything in this file for use only with GCC
+  43:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.4 11 Dec 2015, JFT : Fix heap overflow
+  44:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.5 09 Mar 2016, JFT : Add dso_handle to support destructors call at exit 
+  45:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * V1.6 20 Apr 2017, JFT : Foward declaration of __sbrk to fix link time optimization (-flto) compi
+  46:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * @endcond
+  47:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  */
+  48:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  49:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** /*
+  50:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * This file contains stubs for standard C library functionality that must
+  51:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  * typically be provided for the underlying platform.
+  52:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  *
+  53:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****  */
+  54:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** #if defined ( __GNUC__ )
+  55:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  56:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** #include <stdint.h>
+  57:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** #include <errno.h>
+  58:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** #include <sys/types.h>
+  59:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  60:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** /* Forward prototypes.  */
+  61:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** caddr_t _sbrk(int nbytes) __attribute__((externally_visible));
+  62:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** void _init(void) __attribute__((externally_visible));
+  63:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  64:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** /* c++ destructor dynamic shared object needed if -fuse-cxa-atexit is used*/
+  65:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** void *__dso_handle __attribute__ ((weak));
+  66:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  67:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** // defined in linker script
+  68:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** extern caddr_t Heap_Bank1_Start;
+  69:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** extern caddr_t Heap_Bank1_End;
+  70:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** caddr_t _sbrk(int nbytes)
+  71:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** {
+  35              		.loc 1 71 1
+  36              		.cfi_startproc
+  37              		@ args = 0, pretend = 0, frame = 16
+  38              		@ frame_needed = 1, uses_anonymous_args = 0
+  39 0000 80B5     		push	{r7, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 8
+  42              		.cfi_offset 7, -8
+  43              		.cfi_offset 14, -4
+  44 0002 84B0     		sub	sp, sp, #16
+  45              	.LCFI1:
+  46              		.cfi_def_cfa_offset 24
+  47 0004 00AF     		add	r7, sp, #0
+  48              	.LCFI2:
+  49              		.cfi_def_cfa_register 7
+  50 0006 7860     		str	r0, [r7, #4]
+  72:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   static caddr_t heap_ptr = NULL;
+  73:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   caddr_t base;
+  74:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  75:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   if (heap_ptr == NULL) {
+  51              		.loc 1 75 16
+  52 0008 144B     		ldr	r3, .L5
+  53 000a 1B68     		ldr	r3, [r3]
+  54              		.loc 1 75 6
+  55 000c 002B     		cmp	r3, #0
+  56 000e 02D1     		bne	.L2
+  76:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     heap_ptr = (caddr_t)&Heap_Bank1_Start;
+  57              		.loc 1 76 14
+  58 0010 124B     		ldr	r3, .L5
+  59 0012 134A     		ldr	r2, .L5+4
+  60 0014 1A60     		str	r2, [r3]
+  61              	.L2:
+  77:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   }
+  78:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  79:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   base = heap_ptr;
+  62              		.loc 1 79 8
+  63 0016 114B     		ldr	r3, .L5
+  64 0018 1B68     		ldr	r3, [r3]
+  65 001a FB60     		str	r3, [r7, #12]
+  80:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  81:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   /* heap word alignment */
+  82:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   nbytes = (nbytes + 3) & ~0x3U;
+  66              		.loc 1 82 20
+  67 001c 7B68     		ldr	r3, [r7, #4]
+  68 001e 0333     		adds	r3, r3, #3
+  69              		.loc 1 82 10
+  70 0020 23F00303 		bic	r3, r3, #3
+  71 0024 7B60     		str	r3, [r7, #4]
+  83:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   if ((caddr_t)&Heap_Bank1_End > (heap_ptr + nbytes))
+  72              		.loc 1 83 44
+  73 0026 0D4B     		ldr	r3, .L5
+  74 0028 1A68     		ldr	r2, [r3]
+  75 002a 7B68     		ldr	r3, [r7, #4]
+  76 002c 1344     		add	r3, r3, r2
+  77              		.loc 1 83 6
+  78 002e 0D4A     		ldr	r2, .L5+8
+  79 0030 9342     		cmp	r3, r2
+  80 0032 07D2     		bcs	.L3
+  84:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   {
+  85:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     heap_ptr += nbytes;
+  81              		.loc 1 85 14
+  82 0034 094B     		ldr	r3, .L5
+  83 0036 1A68     		ldr	r2, [r3]
+  84 0038 7B68     		ldr	r3, [r7, #4]
+  85 003a 1344     		add	r3, r3, r2
+  86 003c 074A     		ldr	r2, .L5
+  87 003e 1360     		str	r3, [r2]
+  86:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     return (base);
+  88              		.loc 1 86 12
+  89 0040 FB68     		ldr	r3, [r7, #12]
+  90 0042 06E0     		b	.L4
+  91              	.L3:
+  87:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   }
+  88:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   else
+  89:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   {
+  90:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     /* Heap overflow */
+  91:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     errno = ENOMEM;
+  92              		.loc 1 91 5
+  93 0044 FFF7FEFF 		bl	__errno
+  94 0048 0346     		mov	r3, r0
+  95              		.loc 1 91 11 discriminator 1
+  96 004a 0C22     		movs	r2, #12
+  97 004c 1A60     		str	r2, [r3]
+  92:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****     return ((caddr_t)-1);
+  98              		.loc 1 92 12
+  99 004e 4FF0FF33 		mov	r3, #-1
+ 100              	.L4:
+  93:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c ****   }
+  94:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** }
+ 101              		.loc 1 94 1
+ 102 0052 1846     		mov	r0, r3
+ 103 0054 1037     		adds	r7, r7, #16
+ 104              	.LCFI3:
+ 105              		.cfi_def_cfa_offset 8
+ 106 0056 BD46     		mov	sp, r7
+ 107              	.LCFI4:
+ 108              		.cfi_def_cfa_register 13
+ 109              		@ sp needed
+ 110 0058 80BD     		pop	{r7, pc}
+ 111              	.L6:
+ 112 005a 00BF     		.align	2
+ 113              	.L5:
+ 114 005c 04000000 		.word	heap_ptr.0
+ 115 0060 00000000 		.word	Heap_Bank1_Start
+ 116 0064 00000000 		.word	Heap_Bank1_End
+ 117              		.cfi_endproc
+ 118              	.LFE0:
+ 120              		.section	.text._init,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	_init
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	_init:
+ 128              	.LFB1:
+  95:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** 
+  96:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** /* Init */
+  97:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** void _init(void)
+  98:/opt/XMClib/XMC_Peripheral_Library_v2.1.16/ThirdPartyLibraries/Newlib/syscalls.c **** {}
+ 129              		.loc 1 98 1
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 134 0000 80B4     		push	{r7}
+ 135              	.LCFI5:
+ 136              		.cfi_def_cfa_offset 4
+ 137              		.cfi_offset 7, -4
+ 138 0002 00AF     		add	r7, sp, #0
+ 139              	.LCFI6:
+ 140              		.cfi_def_cfa_register 7
+ 141              		.loc 1 98 2
+ 142 0004 00BF     		nop
+ 143 0006 BD46     		mov	sp, r7
+ 144              	.LCFI7:
+ 145              		.cfi_def_cfa_register 13
+ 146              		@ sp needed
+ 147 0008 5DF8047B 		ldr	r7, [sp], #4
+ 148              	.LCFI8:
+ 149              		.cfi_restore 7
+ 150              		.cfi_def_cfa_offset 0
+ 151 000c 7047     		bx	lr
+ 152              		.cfi_endproc
+ 153              	.LFE1:
+ 155              		.bss
+ 156              		.align	2
+ 157              	heap_ptr.0:
+ 158 0004 00000000 		.space	4
+ 160              		.text
+ 161              	.Letext0:
+ 162              		.file 2 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/types.h"
+ 163              		.file 3 "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/errno.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:24     .bss:00000000 __dso_handle
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:21     .bss:00000000 $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:27     .text._sbrk:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:33     .text._sbrk:00000000 _sbrk
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:114    .text._sbrk:0000005c $d
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:157    .bss:00000004 heap_ptr.0
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:121    .text._init:00000000 $t
+/var/folders/2l/6fxgnc996gd1v1jf5fy_8j5r0000gn/T//ccU3Edjy.s:127    .text._init:00000000 _init
+                           .group:00000000 wm4.0.241ce140b5afdc8837fba2b44cc07f6b
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.features.h.33.00009458517f941082eec7afb4810922
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.errno.h.2.ba016d646105af6cad23be83630b6a3f
+                           .group:00000000 wm4.newlib.h.7.591ac1bd65c1f5b34864757667a05252
+                           .group:00000000 wm4.ieeefp.h.77.61a77db5804869b1dadd307a77cf78c9
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4.cdefs.h.49.bafb023044e47a1dcdd854e4d6521f7d
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.78.6b87466b04591b1f1cb88c14fdf2ba9e
+                           .group:00000000 wm4.errno.h.18.87873c1c5b242e8a4fdc43daa9aad824
+                           .group:00000000 wm4.types.h.40.8b6acba56cefbb11746718204edc8f5e
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.32.bec3221fa7a9bb0bdde696c9c57e47d2
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.19.8c04bee5682eafa577cf6325dd7ee64c
+                           .group:00000000 wm4.types.h.51.e2a6e4379b4797ffcc4841f8498fd61b
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+
+UNDEFINED SYMBOLS
+__errno
+Heap_Bank1_Start
+Heap_Bank1_End
